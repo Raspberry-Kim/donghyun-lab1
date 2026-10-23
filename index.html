@@ -100,6 +100,32 @@ th{background:var(--surface2)}
 @media(max-width:780px){.reference-body .table-scroll-hint{display:block;font-size:var(--text-xs);margin-bottom:-12px}}
 .maker-note{margin-top:16px;padding:24px 0 8px;border-top:1px solid var(--line);max-width:850px}
 .maker-note h3{font-size:var(--text-base);margin:8px 0}.maker-note p{font-size:var(--text-sm)}
+
+/* SERIES-NAV-START */
+.series-strip{--series-ink:#42372d;--series-muted:#7c6d5d;--series-line:#d9cbb5;--series-paper:#fbf7ef;display:flex;align-items:center;gap:24px;padding:16px 0 18px;margin:0 0 24px;border-bottom:1px solid var(--series-line);color:var(--series-ink);font-family:'Pretendard',sans-serif;hanging-punctuation:none}
+.series-context{margin:0;flex:1;min-width:0;font-size:12px;line-height:1.65;color:var(--series-muted)}
+.series-context strong{display:block;font-size:13px;letter-spacing:-.02em;font-weight:650;color:var(--series-ink)}
+.series-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;min-width:430px}
+.series-item{display:flex;flex-direction:column;justify-content:center;gap:4px;min-height:58px;padding:10px 17px;border:1px solid var(--series-line);border-radius:10px;background:var(--series-paper);color:var(--series-ink);text-decoration:none;transition:background .15s,border-color .15s,transform .15s}
+a.series-item:hover{background:#fff0c6;border-color:#b99542;transform:translateY(-1px);color:#42372d}
+a.series-item:focus-visible{outline:3px solid #a5791c;outline-offset:3px}
+.series-name{font-family:'Black Han Sans','Pretendard',sans-serif;font-size:17px;font-weight:400;line-height:1.1;white-space:nowrap}
+.series-name sup{font-family:'Pretendard',sans-serif;font-size:9px;vertical-align:top;margin-left:2px}
+.series-note{font-size:11px;line-height:1.3;font-weight:400;color:var(--series-muted);white-space:nowrap}
+.series-note:after{content:' ↗';font-size:10px}
+.series-item[aria-current="page"]{background:#f2b705;border-color:#f2b705;color:#26211c}
+.series-item[aria-current="page"] .series-note{color:#554018}
+.series-item[aria-current="page"] .series-note:after{content:' · 지금 여기';font-size:10px}
+[data-theme="dark"] .series-strip{--series-ink:#eee4d3;--series-muted:#b2a38e;--series-line:#4e4436;--series-paper:#24201b}
+[data-theme="dark"] a.series-item:hover{background:#352d1f;color:#f7ecd8;border-color:#8c7338}
+@media(max-width:780px){
+ .series-strip{display:block;padding:14px 0 16px;margin-bottom:20px}
+ .series-context{margin-bottom:10px;font-size:11px}.series-context strong{display:inline;margin-right:8px;font-size:11px}
+ .series-links{min-width:0;gap:6px}.series-item{padding:10px 9px;min-height:58px}
+ .series-name{font-size:16px}.series-note{font-size:10px}.series-item[aria-current="page"] .series-note:after{font-size:9px}
+}
+@media(prefers-reduced-motion:reduce){.series-item{transition:none}a.series-item:hover{transform:none}}
+/* SERIES-NAV-END */
 </style>
 </head>
 <body>
@@ -109,6 +135,9 @@ th{background:var(--surface2)}
   <div class="edition">v0.4 <span>회로 탐험실</span><button id="theme" aria-label="밝은 화면과 어두운 화면 전환" aria-pressed="false">화면 전환</button></div>
 </header>
 <main id="main">
+<!-- SERIES-NAV-START -->
+<nav class="series-strip" aria-label="동현 프로젝트 이동"><p class="series-context"><strong>동현의 작은 실험들</strong>하나의 언어, 두 개의 신경계</p><div class="series-links"><a class="series-item" data-series="lang" href="https://raspberry-kim.github.io/donghyun-lang/" aria-label="동현랭™ 언어 플레이그라운드로 이동"><span class="series-name">동현랭<sup>™</sup></span><span class="series-note">언어</span></a><span class="series-item" data-series="fly" aria-current="page"><span class="series-name">동현초<sup>™</sup></span><span class="series-note">초파리</span></span><a class="series-item" data-series="worm" href="https://raspberry-kim.github.io/donghyun-lab2/" aria-label="동현파™ 선충 회로실험실로 이동"><span class="series-name">동현파<sup>™</sup></span><span class="series-note">선충</span></a></div></nav>
+<!-- SERIES-NAV-END -->
   <section class="intro">
     <div><div class="eyebrow">CONNECTOME × ESOTERIC LANGUAGE</div><h1>초파리 회로실험실: <span class="title-brand">동현<span>초</span><sup>TM</sup></span></h1><p>13만여 뉴런의 공개 뇌에서 1,758개를 골라, 이 작은 초파리에 담았다.</p></div>
     <div class="model-stamp"><strong>1,758 <span>선별 뉴런</span></strong><strong>121,135 <span>보존 연결</span></strong><small>138,639 뉴런의 원본 모델에서 추출 · FlyWire v783</small></div>
