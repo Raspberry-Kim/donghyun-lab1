@@ -20,6 +20,8 @@ Third-party materials:
 - Adapted Shiu numerical model: MIT, licenses/SHIU-MIT.txt.
 - Donghyun-lang runtime: MIT, licenses/DONGHYUN-MIT.txt.
 - Embedded fonts: SIL Open Font License, licenses/*-OFL.txt.
+- Vendored Marked 15.0.12 build-time Markdown parser: MIT and original
+  related notices, licenses/MARKED-MIT.txt. Not loaded at app runtime.
 
 MIT License (original application code and documentation only)
 

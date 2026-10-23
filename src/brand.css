@@ -55,3 +55,24 @@ th{background:var(--surface2)}
 [data-theme=dark] .chart-legend span:nth-child(3){--series:#f0705c!important}
 [data-theme=dark] .chart-legend span:nth-child(4){--series:#d39af5!important}
 @media(max-width:780px){.header{height:64px}.brand small{display:none}.brand-divider{height:22px}.brand{gap:8px}.edition{gap:8px}.edition button{font-size:var(--text-xs)}.welcome{max-width:none;top:auto;bottom:12px;left:auto;right:12px;transform:none;background:none;padding:0;border:0}.welcome h3,.welcome p{display:none}}
+.reference-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 28px;padding:0 0 16px;border-bottom:1px solid var(--line)}
+.reference-tabs button{font-family:var(--body);font-size:var(--text-sm);padding:10px 14px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--muted);min-height:44px}
+.reference-tabs button.active{background:var(--accent);border-color:var(--accent);color:#211a10;font-weight:700}
+.reference-panel{scroll-margin-top:24px;min-width:0}
+.reference-panel[hidden]{display:none}
+.reference-panel:focus-visible{outline:2px solid var(--accent);outline-offset:6px}
+.reference-body{max-width:100%;overflow-wrap:anywhere}
+.reference-body h2{margin-bottom:24px}.reference-body h3{margin-top:32px}
+.reference-body strong{color:var(--ink);font-weight:700}
+.reference-body pre,.license-text{font:var(--text-xs)/1.85 var(--mono);padding:16px;border:1px solid var(--line);border-radius:6px;background:var(--surface2);color:var(--ink);white-space:pre-wrap;overflow-wrap:anywhere;tab-size:2}
+.reference-body pre code{padding:0;background:none}
+.reference-body .table-wrap{margin:20px 0;overflow-x:auto}.reference-body table{min-width:500px}
+.reference-body .table-scroll-hint{display:none}
+.reference-body td code{white-space:normal}
+.license-disclosure{margin:12px 0;border:1px solid var(--line);border-radius:7px;background:var(--paper);scroll-margin-top:24px}
+.license-disclosure summary{cursor:pointer;padding:16px;font-size:var(--text-sm);font-weight:700}
+.license-disclosure summary:hover{background:var(--surface2)}
+.license-disclosure .license-text{margin:0 16px 16px}
+.license-markdown{padding:0 16px 16px}
+@media(max-width:780px){.reference-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:24px}.reference-tabs button{font-size:var(--text-xs);padding:10px 6px}.reference-body h2{font-size:var(--text-lg)}.reference-body .table-wrap{max-width:100%}.license-disclosure summary{padding:12px}.license-disclosure .license-text{padding:12px;margin:0 12px 12px}}
+@media(max-width:780px){.reference-body .table-scroll-hint{display:block;font-size:var(--text-xs);margin-bottom:-12px}}

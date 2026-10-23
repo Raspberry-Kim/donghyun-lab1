@@ -38,7 +38,7 @@ FlyWire 공식 인용표는 Dorkenwald·Schlegel 연구의 공동 인용과 사�
 
 ## 라이선스와 재배포
 
-FlyWire 공식 지침은 공개 데이터의 라이선스를 **Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)**으로 안내한다. 이 앱은 그 지침을 기준으로 비영리 교육용으로 제공하며, 원 기여자·원자료·라이선스·기존 및 새 변경 사실·제공된 고지 등을 유지한다. [공식 지침](https://flywire.ai/guidelines), [라이선스 요약](https://creativecommons.org/licenses/by-nc/4.0/), [법적 전문 Section 2·3·4](https://creativecommons.org/licenses/by-nc/4.0/legalcode.en).
+FlyWire 공식 지침은 공개 데이터의 라이선스를 **Creative Commons Attribution-NonCommercial 4.0 International** (CC BY-NC 4.0)으로 안내한다. 이 앱은 그 지침을 기준으로 비영리 교육용으로 제공하며, 원 기여자·원자료·라이선스·기존 및 새 변경 사실·제공된 고지 등을 유지한다. [공식 지침](https://flywire.ai/guidelines), [라이선스 요약](https://creativecommons.org/licenses/by-nc/4.0/), [법적 전문 Section 2·3·4](https://creativecommons.org/licenses/by-nc/4.0/legalcode.en).
 
 **배포처 간 표기 차이가 있다.** v783 연결 데이터의 [Zenodo 레코드 10676866](https://zenodo.org/records/10676866)는 페이지와 구조화 메타데이터에서 CC BY 4.0을 표시한다. 이는 공식 사이트의 CC BY-NC 4.0과 일치하지 않는다. 어느 표기가 현재 합성 파일·주석·파생 데이터 전체에 우선하는지 이 검토만으로 확정하지 않는다. 더 느슨한 조건을 임의로 채택하지 않았으며, 이 문서가 원자료에 이미 부여된 개별 이용허락을 변경하는 것도 아니다. 영리 재사용이나 별도 데이터 배포 전에는 FlyWire 및 해당 자료의 권리자에게 적용 조건을 확인해야 한다.
 
@@ -47,6 +47,7 @@ FlyWire 공식 지침은 공개 데이터의 라이선스를 **Creative Commons 
 - **Shiu 모델 코드:** MIT, Copyright (c) 2023 Philip Shiu and Nico Spiller. 원문을 `SHIU-MIT.txt`로 보존했다.
 - **동현랭 런타임:** MIT, 원 라이선스를 `DONGHYUN-MIT.txt`로 보존했다.
 - **글꼴:** Black Han Sans, Nanum Gothic Coding, Pretendard. 각 SIL OFL 전문을 웹판과 단일 HTML에 포함했다.
+- **문서 변환 도구:** Marked 15.0.12를 빌드할 때 사용한다. MIT 및 관련 원 고지는 `MARKED-MIT.txt`에 보존했으며, 앱 실행 시 외부 라이브러리를 불러오지 않는다.
 - **데이터 포함 HTML:** MIT 코드가 들어 있다고 전체 데이터 포함 파일을 제한 없는 MIT로 재배포해서는 안 된다. 개별 원자료의 표기 차이도 위와 같이 함께 유지한다.
 
 ## 이번 점검의 범위
