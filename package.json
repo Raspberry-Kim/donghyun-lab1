@@ -1,0 +1,12 @@
+{
+  "name": "donghyun-lab1",
+  "version": "0.3.0",
+  "private": true,
+  "description": "동현초™: 동현랭으로 조작하는 초파리 회로실험실",
+  "scripts": {
+    "build": "node build.cjs",
+    "test": "node qa/core-tests.cjs"
+  },
+  "engines": { "node": ">=18" },
+  "license": "SEE LICENSE IN LICENSE"
+}
