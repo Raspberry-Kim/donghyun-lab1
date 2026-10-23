@@ -97,6 +97,13 @@
     <p>코드는 100,000자, 실행은 100만 문장까지다. CSV는 마지막 초기화 이후의 모든 100 ms 관측과 실행한 코드·시드·모델 버전을 포함한다. 차트에는 최근 10초만 표시한다. 관측 다운로드와 코드 파일 저장은 초파리 상태를 바꾸지 않는다.</p>
   </section>
   <section id="tab-science" class="tab-panel document" hidden>
+    <nav class="reference-tabs" aria-label="모델과 출처 문서">
+      <button type="button" data-reference="overview" class="active" aria-pressed="true" aria-controls="reference-overview">모델 설명</button>
+      <button type="button" data-reference="provenance" aria-pressed="false" aria-controls="offline-provenance">데이터 계보</button>
+      <button type="button" data-reference="credits" aria-pressed="false" aria-controls="offline-credits">전체 출처·이용 안내</button>
+      <button type="button" data-reference="licenses" aria-pressed="false" aria-controls="offline-licenses">글꼴·코드 라이선스</button>
+    </nav>
+    <div id="reference-overview" class="reference-panel" data-reference-panel="overview" tabindex="-1">
     <div class="doc-heading"><div class="eyebrow">BEHIND THE LITTLE FLY</div><h2>초파리 안에는 무엇이 있을까?</h2><p>귀여운 모습 뒤에는 실제 공개 뇌 연결망에서 추출한 1,758개 뉴런과 121,135개의 방향성 연결이 있다. 동현초는 FlyWire의 자료와 Shiu 등의 공개 계산 모델을 바탕으로, 실험할 부분 회로를 골라내고 원래 배선을 보존해 동현랭으로 작동시키는 실험실이다.</p></div>
     <div class="science-block"><span class="index">01</span><div><h3>13만여 뉴런에서, 이 초파리의 회로를 꺼내기까지</h3><p>출발점은 FlyWire v783 연결 자료를 사용하는 138,639개 뉴런의 원본 모델이다. 동현초는 그 전체를 그대로 옮기거나 임의로 뉴런 수만 줄인 것이 아니라, 무엇을 자극하고 어떤 반응을 관찰할지 정한 뒤 부분 회로를 추출했다.</p>
       <ol><li><strong>반응하는 뉴런을 찾았다.</strong> 단맛·단맛과 쓴맛의 혼합·좌우 LPLC2 시각 뉴런 자극 등 여섯 조건의 사전 계산에서 발화한 뉴런을 모았다. 자극을 넣는 감각 뉴런과 신호를 읽을 관측 뉴런도 남겼다.</li>
@@ -125,6 +132,8 @@
       <p>MIT인 모델·동현랭 코드와 원자료의 권리는 별개다. 전체 데이터 포함 HTML을 제한 없는 MIT 파일로 재배포하면 안 된다. <a href="licenses/SHIU-MIT.txt" target="_blank">원 모델 MIT</a> · <a href="licenses/DONGHYUN-MIT.txt" target="_blank">동현랭 MIT</a> · <a href="CREDITS.md" target="_blank">전체 출처·이용 안내</a></p>
     </div></div>
     <div class="science-block"><span class="index">06</span><div><h3>같은 산책을 다시 보고 싶다면</h3><p>같은 버전·동현랭 코드·시드를 사용하면 난수 순서를 고정해 실험을 다시 볼 수 있다. 다른 브라우저의 부동소수점 경계까지 동일하다고 보장하지는 않는다. 뉴런 ID·해시·시험 범위는 <a href="PROVENANCE.md" target="_blank">데이터 계보 문서</a>에서 확인할 수 있다. 코드는 .dh, 관측값은 CSV로 저장할 수 있으며 서버에는 저장하지 않는다.</p></div></div>
+    </div>
+    <!-- REFERENCE_DOCUMENTS -->
   </section>
 </main>
 <footer><span>동현초 v0.3 · 인하대학교 의과대학 교수 김동현</span><span>FlyWire v783 · 비영리 교육용 · <a href="#credits" data-credits>출처·가공·이용 조건</a></span><span><a href="https://raspberry-kim.github.io/donghyun-lang/" target="_blank" rel="noopener">동현랭 실행기</a> · <a href="https://github.com/raspberry-kim/donghyun-lang" target="_blank" rel="noopener">GitHub</a></span></footer>

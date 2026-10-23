@@ -20,8 +20,29 @@ document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.tab-panel').forEach(p=>p.hidden=p.id!=='tab-'+b.dataset.tab);
   if(b.dataset.tab==='lab'){drawArena(performance.now());drawChart();}
 });
-document.querySelectorAll('[data-credits]').forEach(a=>a.onclick=e=>{e.preventDefault();document.querySelector('[data-tab="science"]').click();$('#credits').scrollIntoView({block:'start'});});
-document.querySelectorAll('a[href^="#offline-"]').forEach(a=>a.addEventListener('click',()=>{const target=document.querySelector(a.getAttribute('href'));if(target?.tagName==='DETAILS')target.open=true;}));
+function showReference(key){
+  document.querySelectorAll('[data-reference]').forEach(b=>{
+    const active=b.dataset.reference===key;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));
+  });
+  document.querySelectorAll('[data-reference-panel]').forEach(p=>p.hidden=p.dataset.referencePanel!==key);
+}
+document.querySelectorAll('[data-reference]').forEach(b=>b.onclick=()=>showReference(b.dataset.reference));
+function openReferenceTarget(hash){
+  let id;try{id=decodeURIComponent(hash.slice(1));}catch{return false;}
+  const target=document.getElementById(id),panel=target?.closest('[data-reference-panel]');
+  if(!panel)return false;
+  document.querySelector('[data-tab="science"]').click();showReference(panel.dataset.referencePanel);
+  for(let node=target;node&&node!==panel.parentElement;node=node.parentElement)if(node.tagName==='DETAILS')node.open=true;
+  requestAnimationFrame(()=>{target.scrollIntoView({block:'start'});if(target.hasAttribute('tabindex'))target.focus({preventScroll:true});});
+  return true;
+}
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
+  if(openReferenceTarget(a.getAttribute('href'))){
+    e.preventDefault();try{history.replaceState(null,'',a.getAttribute('href'));}catch{}
+  }
+}));
+window.addEventListener('hashchange',()=>openReferenceTarget(location.hash));
+if(location.hash)openReferenceTarget(location.hash);
 $('.brand').onclick=e=>{e.preventDefault();document.querySelector('[data-tab="lab"]').click();window.scrollTo(0,0);};
 function setBusy(b){busy=b;$('#run').disabled=!ready||b;$('#start').disabled=!ready||b;$('#halt').disabled=!b;}
 function run(){
