@@ -1,6 +1,6 @@
 {
   "name": "donghyun-lab1",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "description": "동현초™: 동현랭으로 조작하는 초파리 회로실험실",
   "scripts": {
