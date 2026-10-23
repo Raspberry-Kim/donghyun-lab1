@@ -1,0 +1,512 @@
+{
+  "tests": 39,
+  "model": {
+    "sugar": [
+      {
+        "seed": 1,
+        "wallMs": 148.2,
+        "MN9": 64.5,
+        "L": 0,
+        "R": 0,
+        "GF": 0
+      },
+      {
+        "seed": 2,
+        "wallMs": 146.7,
+        "MN9": 46.5,
+        "L": 0,
+        "R": 0,
+        "GF": 0
+      },
+      {
+        "seed": 3,
+        "wallMs": 146,
+        "MN9": 55.5,
+        "L": 0,
+        "R": 0,
+        "GF": 0
+      },
+      {
+        "seed": 4,
+        "wallMs": 149.5,
+        "MN9": 61,
+        "L": 0,
+        "R": 0,
+        "GF": 0
+      },
+      {
+        "seed": 5,
+        "wallMs": 168.6,
+        "MN9": 52,
+        "L": 0,
+        "R": 0,
+        "GF": 0
+      },
+      {
+        "seed": 6,
+        "wallMs": 159.2,
+        "MN9": 51,
+        "L": 0,
+        "R": 0,
+        "GF": 0
+      },
+      {
+        "seed": 7,
+        "wallMs": 148.3,
+        "MN9": 54,
+        "L": 0,
+        "R": 0,
+        "GF": 0
+      },
+      {
+        "seed": 8,
+        "wallMs": 148.9,
+        "MN9": 56.5,
+        "L": 0,
+        "R": 0,
+        "GF": 0
+      },
+      {
+        "seed": 9,
+        "wallMs": 149.1,
+        "MN9": 53.5,
+        "L": 0,
+        "R": 0,
+        "GF": 0
+      },
+      {
+        "seed": 10,
+        "wallMs": 147.2,
+        "MN9": 58,
+        "L": 0,
+        "R": 0,
+        "GF": 0
+      }
+    ],
+    "bitterMix": [
+      {
+        "seed": 1,
+        "wallMs": 167.7,
+        "MN9": 0,
+        "L": 0,
+        "R": 0,
+        "GF": 0
+      },
+      {
+        "seed": 2,
+        "wallMs": 154.6,
+        "MN9": 0,
+        "L": 0,
+        "R": 0,
+        "GF": 0
+      },
+      {
+        "seed": 3,
+        "wallMs": 155.8,
+        "MN9": 0,
+        "L": 0,
+        "R": 0,
+        "GF": 0
+      },
+      {
+        "seed": 4,
+        "wallMs": 154.3,
+        "MN9": 0,
+        "L": 0,
+        "R": 0,
+        "GF": 0
+      },
+      {
+        "seed": 5,
+        "wallMs": 153.4,
+        "MN9": 0,
+        "L": 0,
+        "R": 0,
+        "GF": 0
+      },
+      {
+        "seed": 6,
+        "wallMs": 151.6,
+        "MN9": 0,
+        "L": 0,
+        "R": 0,
+        "GF": 0
+      },
+      {
+        "seed": 7,
+        "wallMs": 151.7,
+        "MN9": 0,
+        "L": 0,
+        "R": 0,
+        "GF": 0
+      },
+      {
+        "seed": 8,
+        "wallMs": 153,
+        "MN9": 0,
+        "L": 0,
+        "R": 0,
+        "GF": 0
+      },
+      {
+        "seed": 9,
+        "wallMs": 151.4,
+        "MN9": 0,
+        "L": 0,
+        "R": 0,
+        "GF": 0
+      },
+      {
+        "seed": 10,
+        "wallMs": 151.6,
+        "MN9": 0,
+        "L": 0,
+        "R": 0,
+        "GF": 0
+      }
+    ],
+    "loomLeft": [
+      {
+        "seed": 1,
+        "wallMs": 172.9,
+        "MN9": 0,
+        "L": 0,
+        "R": 53,
+        "GF": 143
+      },
+      {
+        "seed": 2,
+        "wallMs": 166.3,
+        "MN9": 0,
+        "L": 0,
+        "R": 53,
+        "GF": 145.5
+      },
+      {
+        "seed": 3,
+        "wallMs": 172.6,
+        "MN9": 0,
+        "L": 0,
+        "R": 51,
+        "GF": 143
+      },
+      {
+        "seed": 4,
+        "wallMs": 167.8,
+        "MN9": 0,
+        "L": 0,
+        "R": 56,
+        "GF": 143.5
+      },
+      {
+        "seed": 5,
+        "wallMs": 209.6,
+        "MN9": 0,
+        "L": 0,
+        "R": 51,
+        "GF": 141
+      },
+      {
+        "seed": 6,
+        "wallMs": 169.6,
+        "MN9": 0,
+        "L": 0,
+        "R": 53,
+        "GF": 140.5
+      },
+      {
+        "seed": 7,
+        "wallMs": 165.8,
+        "MN9": 0,
+        "L": 0,
+        "R": 51,
+        "GF": 141.5
+      },
+      {
+        "seed": 8,
+        "wallMs": 166.3,
+        "MN9": 0,
+        "L": 0,
+        "R": 56,
+        "GF": 144
+      },
+      {
+        "seed": 9,
+        "wallMs": 166.2,
+        "MN9": 0,
+        "L": 0,
+        "R": 51,
+        "GF": 148.5
+      },
+      {
+        "seed": 10,
+        "wallMs": 166,
+        "MN9": 0,
+        "L": 0,
+        "R": 56,
+        "GF": 140.5
+      }
+    ],
+    "loomRight": [
+      {
+        "seed": 1,
+        "wallMs": 168.7,
+        "MN9": 0,
+        "L": 51,
+        "R": 0,
+        "GF": 155.5
+      },
+      {
+        "seed": 2,
+        "wallMs": 167.2,
+        "MN9": 0,
+        "L": 50,
+        "R": 0,
+        "GF": 157.5
+      },
+      {
+        "seed": 3,
+        "wallMs": 166.4,
+        "MN9": 0,
+        "L": 50,
+        "R": 0,
+        "GF": 155.5
+      },
+      {
+        "seed": 4,
+        "wallMs": 168.5,
+        "MN9": 0,
+        "L": 54,
+        "R": 0,
+        "GF": 153
+      },
+      {
+        "seed": 5,
+        "wallMs": 167,
+        "MN9": 0,
+        "L": 54,
+        "R": 0,
+        "GF": 153
+      },
+      {
+        "seed": 6,
+        "wallMs": 166.8,
+        "MN9": 0,
+        "L": 55,
+        "R": 0,
+        "GF": 157
+      },
+      {
+        "seed": 7,
+        "wallMs": 168,
+        "MN9": 0,
+        "L": 55,
+        "R": 0,
+        "GF": 156.5
+      },
+      {
+        "seed": 8,
+        "wallMs": 171.8,
+        "MN9": 0,
+        "L": 54,
+        "R": 0,
+        "GF": 152
+      },
+      {
+        "seed": 9,
+        "wallMs": 167.1,
+        "MN9": 0,
+        "L": 49,
+        "R": 0,
+        "GF": 153
+      },
+      {
+        "seed": 10,
+        "wallMs": 169.6,
+        "MN9": 0,
+        "L": 55,
+        "R": 0,
+        "GF": 156.5
+      }
+    ]
+  },
+  "experiments": {
+    "taste": {
+      "time": 13000,
+      "samples": 130,
+      "steps": 53,
+      "x": 542.1084687175658,
+      "y": 172.94997296152172,
+      "distance": 475.19999999999936,
+      "encounters": {
+        "sugar": 2,
+        "bitter": 1,
+        "obstacle": 0,
+        "dopamine": 0
+      },
+      "peakDA": 2.5,
+      "lastDA": 0
+    },
+    "bitter": {
+      "time": 11000,
+      "samples": 110,
+      "steps": 52,
+      "x": 374.7347502654209,
+      "y": 193.73131049781662,
+      "distance": 315.00000000000006,
+      "encounters": {
+        "sugar": 2,
+        "bitter": 1,
+        "obstacle": 0,
+        "dopamine": 0
+      },
+      "peakDA": 0,
+      "lastDA": 0
+    },
+    "obstacle": {
+      "time": 12000,
+      "samples": 120,
+      "steps": 44,
+      "x": 14.844820789182053,
+      "y": 387.93171347517034,
+      "distance": 467.9999999999986,
+      "encounters": {
+        "sugar": 0,
+        "bitter": 0,
+        "obstacle": 5,
+        "dopamine": 0
+      },
+      "peakDA": 0,
+      "lastDA": 0
+    },
+    "loomL": {
+      "time": 7000,
+      "samples": 70,
+      "steps": 46,
+      "x": 300.8171510265678,
+      "y": 337.83114199736104,
+      "distance": 228.36000000000013,
+      "encounters": {
+        "sugar": 0,
+        "bitter": 0,
+        "obstacle": 0,
+        "dopamine": 0
+      },
+      "peakDA": 5,
+      "lastDA": 0
+    },
+    "loomR": {
+      "time": 7000,
+      "samples": 70,
+      "steps": 46,
+      "x": 280.893554865366,
+      "y": 51.1754403115608,
+      "distance": 228.35999999999967,
+      "encounters": {
+        "sugar": 0,
+        "bitter": 0,
+        "obstacle": 0,
+        "dopamine": 0
+      },
+      "peakDA": 8.75,
+      "lastDA": 0
+    },
+    "dopamine": {
+      "time": 10000,
+      "samples": 100,
+      "steps": 50,
+      "x": 469.3566680914828,
+      "y": 205.9507171465755,
+      "distance": 399.9999999999994,
+      "encounters": {
+        "sugar": 0,
+        "bitter": 0,
+        "obstacle": 0,
+        "dopamine": 1
+      },
+      "peakDA": 67.5,
+      "lastDA": 0
+    },
+    "feedback": {
+      "time": 11000,
+      "samples": 110,
+      "steps": 75,
+      "x": 458.3992706350908,
+      "y": 194.5073700221475,
+      "distance": 388.7999999999996,
+      "encounters": {
+        "sugar": 1,
+        "bitter": 0,
+        "obstacle": 0,
+        "dopamine": 0
+      },
+      "peakDA": 2.5,
+      "lastDA": 0
+    },
+    "twoMeals": {
+      "time": 13000,
+      "samples": 130,
+      "steps": 66,
+      "x": 382.80799333685445,
+      "y": 197.5789938121873,
+      "distance": 323.09999999999974,
+      "encounters": {
+        "sugar": 3,
+        "bitter": 1,
+        "obstacle": 0,
+        "dopamine": 0
+      },
+      "peakDA": 2.5,
+      "lastDA": 0
+    },
+    "twoZones": {
+      "time": 12000,
+      "samples": 120,
+      "steps": 52,
+      "x": 538.6930108351035,
+      "y": 201.1482090037243,
+      "distance": 480,
+      "encounters": {
+        "sugar": 0,
+        "bitter": 0,
+        "obstacle": 0,
+        "dopamine": 2
+      },
+      "peakDA": 65,
+      "lastDA": 0
+    },
+    "bitterBlock": {
+      "time": 12000,
+      "samples": 120,
+      "steps": 63,
+      "x": 518.3502922849633,
+      "y": 183.4375527922953,
+      "distance": 449.99999999999943,
+      "encounters": {
+        "sugar": 1,
+        "bitter": 1,
+        "obstacle": 0,
+        "dopamine": 0
+      },
+      "peakDA": 0,
+      "lastDA": 0
+    },
+    "blank": {
+      "time": 1000,
+      "samples": 10,
+      "steps": 12,
+      "x": 320,
+      "y": 200,
+      "distance": 0,
+      "encounters": {
+        "sugar": 0,
+        "bitter": 0,
+        "obstacle": 0,
+        "dopamine": 0
+      },
+      "peakDA": 0,
+      "lastDA": 0
+    }
+  },
+  "dataSHA256": "7f163d56c391d1c18aedef9f1c1ea75c8311f70864cbea8ee0352f19b8e030f5"
+}
