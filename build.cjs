@@ -27,7 +27,8 @@ const embed='window.FLY_EMBED='+JSON.stringify({worker:['donghyun.js','brain.js'
 const js=src('examples.js').replaceAll('export ','')+'\n'+src('app.js').replace(/^import .*\n/,'');
 html=html.replace('<link rel="stylesheet" href="fonts.css">','<style>'+inlineFonts+'</style>').replace('<link rel="stylesheet" href="style.css">','<style>'+cssText+'</style>')
   .replace('<script type="module" src="app.js"></script>','<script>'+safe(embed+'\n'+js)+'</script>');
-const single=path.join(root,'동현초-v0.3.html');fs.writeFileSync(single,html);
+const version=require('./package.json').version.split('.').slice(0,2).join('.');
+const single=path.join(root,`동현초-v${version}.html`);fs.writeFileSync(single,html);
 // GitHub Pages entry point is also the complete offline edition.
 fs.writeFileSync(path.join(root,'index.html'),html);
 const vm=require('vm'),ec=vm.createContext({});

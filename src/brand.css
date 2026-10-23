@@ -76,3 +76,5 @@ th{background:var(--surface2)}
 .license-markdown{padding:0 16px 16px}
 @media(max-width:780px){.reference-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:24px}.reference-tabs button{font-size:var(--text-xs);padding:10px 6px}.reference-body h2{font-size:var(--text-lg)}.reference-body .table-wrap{max-width:100%}.license-disclosure summary{padding:12px}.license-disclosure .license-text{padding:12px;margin:0 12px 12px}}
 @media(max-width:780px){.reference-body .table-scroll-hint{display:block;font-size:var(--text-xs);margin-bottom:-12px}}
+.maker-note{margin-top:16px;padding:24px 0 8px;border-top:1px solid var(--line);max-width:850px}
+.maker-note h3{font-size:var(--text-base);margin:8px 0}.maker-note p{font-size:var(--text-sm)}

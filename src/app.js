@@ -72,7 +72,7 @@ $('#open').onchange=async e=>{
 $('#csv').onclick=()=>{
   const rows=allSamples.length?allSamples:samples,keys=['ms','MN9_L','MN9_R','DNa02_L','DNa02_R','GF_L','GF_R','DA','x','y','active','distance','velocity','dopamineStim','sugarStim','bitterStim','collision'];
   const quote=x=>'"'+String(x).replaceAll('"','""')+'"';
-  const meta=[['# model','동현초 0.3 / FlyWire v783 / 1758 neurons / 121135 edges'],['# data','FlyWire Consortium / reduced, reindexed; not endorsed by FlyWire. Noncommercial use following FlyWire guidelines (CC BY-NC 4.0); Zenodo 10676866 metadata lists CC BY 4.0. See credits for discrepancy.'],['# credits','https://flywire.ai/guidelines'],['# seed',state?.seed],['# code',lastSource]];
+  const meta=[['# model','동현초 0.4 / FlyWire v783 / 1758 neurons / 121135 edges'],['# data','FlyWire Consortium / reduced, reindexed; not endorsed by FlyWire. Noncommercial use following FlyWire guidelines (CC BY-NC 4.0); Zenodo 10676866 metadata lists CC BY 4.0. See credits for discrepancy.'],['# credits','https://flywire.ai/guidelines'],['# seed',state?.seed],['# code',lastSource]];
   download('초파리-관측.csv','text/csv;charset=utf-8','\ufeff'+meta.map(r=>r.map(quote).join(',')).join('\n')+'\n'+keys.join(',')+'\n'+rows.map(r=>keys.map(k=>Number(r[k]).toFixed(k==='ms'?0:3)).join(',')).join('\n'));
 };
 function receive(m){
@@ -181,37 +181,42 @@ function drawArena(now){
     for(const [g,sign]of [[3,-1],[4,1]])if(s.drives[g])for(let j=0;j<3;j++){ctx.beginPath();ctx.arc(0,0,30+j*9,sign>0?.35:-2.8,sign>0?2.8:-.35);ctx.stroke();}
     ctx.restore();
   }
-  ctx.save();ctx.translate(x,y);ctx.rotate(a);ctx.scale(1.18,1.18);
+  // v0.4: 20% smaller drawing scale. Physics and the collision radius are unchanged.
+  ctx.save();ctx.translate(x,y);ctx.rotate(a);ctx.scale(.94,.94);
   const moving=busy&&s.velocity>0&&!reduced,phase=moving?now*.018:0;
   ctx.lineCap='round';ctx.lineJoin='round';
   if(s.jump){ctx.shadowColor='#a87d3566';ctx.shadowBlur=8;}
   // Cartoon fly: head +x. Both wings extend BACK (-x) from the thorax.
-  // Their posterior lobes (-25,±16) meet anteriorly at (3,0): a clear >, never <.
-  ctx.strokeStyle=dark?'#dec39a':'#69513b';ctx.lineWidth=1.8;
+  // Their posterior lobes (-24,±14) meet anteriorly at (3,0): a clear >, never <.
+  ctx.strokeStyle=dark?'#d8bd9d':'#80644e';ctx.lineWidth=1.5;
   for(const side of [-1,1])for(let j=0;j<3;j++){
-    const base=-9+j*7,wave=moving?Math.sin(phase+j*2+side)*2.2:0;
-    ctx.beginPath();ctx.moveTo(base,side*5);ctx.lineTo(base-3+wave,side*12);ctx.lineTo(base+(j-1)*7+wave,side*19);ctx.stroke();
+    const base=-8+j*6.5,wave=moving?Math.sin(phase+j*2+side)*1.8:0;
+    ctx.beginPath();ctx.moveTo(base,side*5);ctx.lineTo(base-2+wave,side*10);ctx.lineTo(base+(j-1)*5.5+wave,side*16.5);ctx.stroke();
   }
-  ctx.fillStyle='#e9bd67';ctx.strokeStyle='#785239';ctx.lineWidth=1.5;
-  ctx.beginPath();ctx.ellipse(-9,0,14,9,0,0,Math.PI*2);ctx.fill();ctx.stroke();
-  ctx.strokeStyle='#a67646';ctx.lineWidth=2;
-  for(const bx of [-15,-9,-3]){ctx.beginPath();ctx.moveTo(bx,-6);ctx.quadraticCurveTo(bx-2,0,bx,6);ctx.stroke();}
+  ctx.fillStyle='#edc779';ctx.strokeStyle='#98734f';ctx.lineWidth=1.3;
+  ctx.beginPath();ctx.ellipse(-8,0,12.5,8.5,0,0,Math.PI*2);ctx.fill();ctx.stroke();
+  ctx.fillStyle='#ffe8b3';ctx.beginPath();ctx.ellipse(-9,-3,7,2.5,-.12,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle='#be965c';ctx.lineWidth=1.5;
+  for(const bx of [-13,-7]){ctx.beginPath();ctx.moveTo(bx,-6);ctx.quadraticCurveTo(bx-2,0,bx,6);ctx.stroke();}
   for(const side of [-1,1]){
-    ctx.fillStyle=dark?'#d1e6e5d9':'#edf8f4e6';ctx.strokeStyle=dark?'#b5d5d8':'#96b6b8';ctx.lineWidth=1.1;
+    ctx.fillStyle=dark?'#d9efeedb':'#f0faf6ed';ctx.strokeStyle=dark?'#b5d5d8':'#a1bec0';ctx.lineWidth=1;
     ctx.beginPath();ctx.moveTo(3,side*1);
-    ctx.bezierCurveTo(-4,side*9,-21,side*23,-28,side*16);
-    ctx.bezierCurveTo(-34,side*7,-15,side*2,3,side*1);ctx.closePath();ctx.fill();ctx.stroke();
-    ctx.strokeStyle='#a5c4c8aa';ctx.lineWidth=.65;ctx.beginPath();ctx.moveTo(2,side*2);ctx.lineTo(-25,side*15);ctx.stroke();
+    ctx.bezierCurveTo(-5,side*8,-19,side*21,-24,side*14);
+    ctx.bezierCurveTo(-29,side*7,-12,side*1,3,side*1);ctx.closePath();ctx.fill();ctx.stroke();
+    ctx.strokeStyle='#b7d1d2b0';ctx.lineWidth=.65;ctx.beginPath();ctx.moveTo(2,side*2);ctx.quadraticCurveTo(-9,side*5,-22,side*13);ctx.stroke();
+    ctx.strokeStyle='#fffffff0';ctx.lineWidth=1.1;ctx.beginPath();ctx.moveTo(-10,side*8);ctx.quadraticCurveTo(-17,side*14,-21,side*13);ctx.stroke();
   }
-  circle(3,0,6.5,'#bc844b','#785239');circle(13,0,7.5,'#f3d79c','#785239');
+  ctx.lineWidth=1.2;circle(3,0,6.3,'#d5a36b','#98734f');circle(12.5,0,7.8,'#f8dda8','#98734f');
+  circle(1.5,-2,2.2,'#edc892');
   for(const side of [-1,1]){
-    circle(14,side*5.2,5.2,'#ce6950','#874936');circle(15.6,side*5.2,2.5,'#342924');circle(16.5,side*5.2-1.1,1,'#fffaf1');
-    ctx.strokeStyle='#785239';ctx.lineWidth=1.1;ctx.beginPath();ctx.moveTo(18,side*3);ctx.quadraticCurveTo(24,side*5,23,side*9);ctx.stroke();circle(23,side*9,1.4,'#785239');
+    circle(14,side*5,5.6,'#d87866','#a65f4e');
+    circle(15.4,side*5,2.65,'#4c352e');circle(16.2,side*5-1.1,1.25,'#fffdf4');circle(14.4,side*5+1.1,.5,'#f3ba99');
+    ctx.strokeStyle='#98734f';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(18,side*3);ctx.quadraticCurveTo(23,side*4,22,side*7.8);ctx.stroke();circle(22,side*7.8,1.15,'#b48961');
   }
-  ctx.strokeStyle='#785239';ctx.lineWidth=1.2;ctx.beginPath();ctx.arc(18,0,2.3,-.7,.7);ctx.stroke();
-  if(s.feed){ctx.strokeStyle='#b6763b';ctx.lineWidth=2.4;ctx.beginPath();ctx.moveTo(20,0);ctx.lineTo(30,0);ctx.stroke();circle(31,0,2.8,'#e4ad48','#9a6b34');}
+  ctx.strokeStyle='#98734f';ctx.lineWidth=1.1;ctx.beginPath();ctx.arc(18,0,2.1,-.65,.65);ctx.stroke();
+  if(s.feed){ctx.strokeStyle='#c58d52';ctx.lineWidth=2.1;ctx.beginPath();ctx.moveTo(20,0);ctx.lineTo(28,0);ctx.stroke();circle(29,0,2.6,'#efc575','#b58c56');}
   ctx.restore();
-  ctx.textAlign='left';ctx.font=arenaFont+'px "Nanum Gothic Coding"';ctx.fillStyle=dark?'#efe6d8':'#6e6356';ctx.fillText('01',x+32,y-27);
+  ctx.textAlign='left';ctx.font=(arenaFont*.85)+'px "Nanum Gothic Coding"';ctx.fillStyle=dark?'#efe6d8':'#6e6356';ctx.fillText('01',x+24,y-21);
 }
 function drawChart(){
   const box=chart.getBoundingClientRect();if(box.width===0)return;

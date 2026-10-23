@@ -14,11 +14,11 @@ Description에는 다음 문구를 권장한다.
 
 ## 파일 올리기
 
-1. `donghyun-lab1-v0.3.zip`을 압축 해제한다.
+1. `donghyun-lab1-v0.4.zip`을 압축 해제한다.
 2. 만들어진 `donghyun-lab1` 폴더를 연다.
 3. 새 저장소의 `uploading an existing file`을 누른다. 이미 파일이 있다면 `Add file` → `Upload files`로 들어간다.
 4. **폴더 바깥 껍데기가 아니라, 안에 있는 index.html·README.md 등의 파일과 src·data 등의 하위 폴더를 한꺼번에** 업로드 영역으로 끌어 놓는다.
-5. 커밋 메시지를 `Initial release of Donghyuncho v0.3`으로 적고 `main` 브랜치에 커밋한다.
+5. 커밋 메시지를 `Initial release of Donghyuncho v0.4`으로 적고 `main` 브랜치에 커밋한다.
 6. 저장소 첫 화면에 `index.html`과 `README.md`가 바로 보이는지 확인한다. `donghyun-lab1/index.html`처럼 한 단계 더 들어가야 한다면 루트 위치를 수정한다.
 
 브라우저 업로드는 한 번에 100개 파일, 파일 하나당 25 MiB까지 허용된다. 이 묶음은 그 제한보다 적고, 완성 HTML도 약 4.8 MB다. ZIP만 올리면 GitHub가 웹사이트용 파일로 자동 해제하지 않으므로 반드시 먼저 압축을 푼다. ([GitHub 파일 업로드 안내](https://docs.github.com/en/repositories/working-with-files/managing-files/adding-a-file-to-a-repository))
