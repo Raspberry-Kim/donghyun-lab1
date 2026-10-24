@@ -39,7 +39,7 @@ function command(p){
       (r.MN9_L+r.MN9_R)/2,r.DNa02_L,r.DNa02_R,(r.GF_L+r.GF_R)/2,world.active,world.contact?1:0,r.DA,world.distance];
     assert(queue.length<256,'관측 입력 큐가 가득 찼다. 꽥꽥으로 읽어라.');queue.push(Math.round(values[a[0]-1]));
   }
-  if(op===9){bounded(a[0],0,60,'보행 속도');world.speed=a[0];}
+  if(op===9){bounded(a[0],0,70,'보행 속도');world.speed=a[0];}
   if(op===10)world.drives={};
   if(op===11)log(`동현랭 기록: ${a[0]}`);
   if(op===12){
@@ -87,7 +87,8 @@ function tick(){
   const turn=Math.max(-3,Math.min(3,(r.DNa02_R-r.DNa02_L)*.025));
   // Body mapping is a declared illustration. Baseline exploration is not connectome-derived.
   world.angle+=turn*.02+(world.speed>0?(world.rng()-.5)*.035:0);
-  const speed=feeding?0:world.speed*(escaping?1.6:1);
+  // v0.5: 같은 속도 값에서 이전보다 20% 더 멀리 걷는다. 명령 9의 범위는 0~70이다.
+  const speed=feeding?0:world.speed*1.2*(escaping?1.6:1);
   const x=world.x+Math.cos(world.angle)*speed*.02,y=world.y+Math.sin(world.angle)*speed*.02;
   const blocked=x<12||x>628||y<12||y>388||world.obstacles.some(o=>Math.hypot(x-o.x,y-o.y)<o.r+10);
   world.velocity=0;
