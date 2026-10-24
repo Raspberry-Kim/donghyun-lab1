@@ -104,3 +104,8 @@ a.series-item:focus-visible{outline:3px solid #a5791c;outline-offset:3px}
 }
 @media(prefers-reduced-motion:reduce){.series-item{transition:none}a.series-item:hover{transform:none}}
 /* SERIES-NAV-END */
+
+/* 화면 전환: 동현랭과 같은 달 아이콘 버튼 */
+.edition .icon-btn{width:36px;height:36px;min-height:36px;padding:0;display:grid;place-items:center;border:0;background:transparent;color:var(--muted);border-radius:6px}
+.edition .icon-btn:hover:not(:disabled){background:var(--surface2);color:var(--ink)}
+@media(max-width:780px){.edition .icon-btn{width:44px;height:44px;min-height:44px}}
