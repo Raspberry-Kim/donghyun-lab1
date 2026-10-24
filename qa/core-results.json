@@ -1,10 +1,10 @@
 {
-  "tests": 39,
+  "tests": 50,
   "model": {
     "sugar": [
       {
         "seed": 1,
-        "wallMs": 320.9,
+        "wallMs": 149.2,
         "MN9": 64.5,
         "L": 0,
         "R": 0,
@@ -12,7 +12,7 @@
       },
       {
         "seed": 2,
-        "wallMs": 173.1,
+        "wallMs": 148.2,
         "MN9": 46.5,
         "L": 0,
         "R": 0,
@@ -20,7 +20,7 @@
       },
       {
         "seed": 3,
-        "wallMs": 408.2,
+        "wallMs": 144.1,
         "MN9": 55.5,
         "L": 0,
         "R": 0,
@@ -28,7 +28,7 @@
       },
       {
         "seed": 4,
-        "wallMs": 258.6,
+        "wallMs": 146.9,
         "MN9": 61,
         "L": 0,
         "R": 0,
@@ -36,7 +36,7 @@
       },
       {
         "seed": 5,
-        "wallMs": 181.9,
+        "wallMs": 146.7,
         "MN9": 52,
         "L": 0,
         "R": 0,
@@ -44,7 +44,7 @@
       },
       {
         "seed": 6,
-        "wallMs": 204.7,
+        "wallMs": 144.9,
         "MN9": 51,
         "L": 0,
         "R": 0,
@@ -52,7 +52,7 @@
       },
       {
         "seed": 7,
-        "wallMs": 170.5,
+        "wallMs": 144.5,
         "MN9": 54,
         "L": 0,
         "R": 0,
@@ -60,7 +60,7 @@
       },
       {
         "seed": 8,
-        "wallMs": 178.7,
+        "wallMs": 144.5,
         "MN9": 56.5,
         "L": 0,
         "R": 0,
@@ -68,7 +68,7 @@
       },
       {
         "seed": 9,
-        "wallMs": 148.8,
+        "wallMs": 145.9,
         "MN9": 53.5,
         "L": 0,
         "R": 0,
@@ -76,7 +76,7 @@
       },
       {
         "seed": 10,
-        "wallMs": 178.7,
+        "wallMs": 180.5,
         "MN9": 58,
         "L": 0,
         "R": 0,
@@ -86,7 +86,7 @@
     "bitterMix": [
       {
         "seed": 1,
-        "wallMs": 172.1,
+        "wallMs": 156.9,
         "MN9": 0,
         "L": 0,
         "R": 0,
@@ -94,7 +94,7 @@
       },
       {
         "seed": 2,
-        "wallMs": 161.1,
+        "wallMs": 155.1,
         "MN9": 0,
         "L": 0,
         "R": 0,
@@ -102,7 +102,7 @@
       },
       {
         "seed": 3,
-        "wallMs": 204.2,
+        "wallMs": 155.3,
         "MN9": 0,
         "L": 0,
         "R": 0,
@@ -110,7 +110,7 @@
       },
       {
         "seed": 4,
-        "wallMs": 236.8,
+        "wallMs": 159.6,
         "MN9": 0,
         "L": 0,
         "R": 0,
@@ -118,7 +118,7 @@
       },
       {
         "seed": 5,
-        "wallMs": 196.1,
+        "wallMs": 153.2,
         "MN9": 0,
         "L": 0,
         "R": 0,
@@ -126,7 +126,7 @@
       },
       {
         "seed": 6,
-        "wallMs": 158.7,
+        "wallMs": 153.4,
         "MN9": 0,
         "L": 0,
         "R": 0,
@@ -134,7 +134,7 @@
       },
       {
         "seed": 7,
-        "wallMs": 194,
+        "wallMs": 161.2,
         "MN9": 0,
         "L": 0,
         "R": 0,
@@ -142,7 +142,7 @@
       },
       {
         "seed": 8,
-        "wallMs": 179.8,
+        "wallMs": 155,
         "MN9": 0,
         "L": 0,
         "R": 0,
@@ -150,7 +150,7 @@
       },
       {
         "seed": 9,
-        "wallMs": 168.9,
+        "wallMs": 153.5,
         "MN9": 0,
         "L": 0,
         "R": 0,
@@ -158,7 +158,7 @@
       },
       {
         "seed": 10,
-        "wallMs": 164.8,
+        "wallMs": 152.7,
         "MN9": 0,
         "L": 0,
         "R": 0,
@@ -168,7 +168,7 @@
     "loomLeft": [
       {
         "seed": 1,
-        "wallMs": 209.5,
+        "wallMs": 169.9,
         "MN9": 0,
         "L": 0,
         "R": 53,
@@ -176,7 +176,7 @@
       },
       {
         "seed": 2,
-        "wallMs": 206.4,
+        "wallMs": 167.6,
         "MN9": 0,
         "L": 0,
         "R": 53,
@@ -184,7 +184,7 @@
       },
       {
         "seed": 3,
-        "wallMs": 234,
+        "wallMs": 172.1,
         "MN9": 0,
         "L": 0,
         "R": 51,
@@ -192,7 +192,7 @@
       },
       {
         "seed": 4,
-        "wallMs": 177.6,
+        "wallMs": 168.7,
         "MN9": 0,
         "L": 0,
         "R": 56,
@@ -200,7 +200,7 @@
       },
       {
         "seed": 5,
-        "wallMs": 198.2,
+        "wallMs": 177.2,
         "MN9": 0,
         "L": 0,
         "R": 51,
@@ -208,7 +208,7 @@
       },
       {
         "seed": 6,
-        "wallMs": 212.5,
+        "wallMs": 186,
         "MN9": 0,
         "L": 0,
         "R": 53,
@@ -216,7 +216,7 @@
       },
       {
         "seed": 7,
-        "wallMs": 187.9,
+        "wallMs": 169,
         "MN9": 0,
         "L": 0,
         "R": 51,
@@ -224,7 +224,7 @@
       },
       {
         "seed": 8,
-        "wallMs": 177.1,
+        "wallMs": 166.3,
         "MN9": 0,
         "L": 0,
         "R": 56,
@@ -232,7 +232,7 @@
       },
       {
         "seed": 9,
-        "wallMs": 191.2,
+        "wallMs": 167.8,
         "MN9": 0,
         "L": 0,
         "R": 51,
@@ -240,7 +240,7 @@
       },
       {
         "seed": 10,
-        "wallMs": 182.8,
+        "wallMs": 169.6,
         "MN9": 0,
         "L": 0,
         "R": 56,
@@ -250,7 +250,7 @@
     "loomRight": [
       {
         "seed": 1,
-        "wallMs": 195.3,
+        "wallMs": 166.1,
         "MN9": 0,
         "L": 51,
         "R": 0,
@@ -258,7 +258,7 @@
       },
       {
         "seed": 2,
-        "wallMs": 170.7,
+        "wallMs": 165.8,
         "MN9": 0,
         "L": 50,
         "R": 0,
@@ -266,7 +266,7 @@
       },
       {
         "seed": 3,
-        "wallMs": 216.4,
+        "wallMs": 165.8,
         "MN9": 0,
         "L": 50,
         "R": 0,
@@ -274,7 +274,7 @@
       },
       {
         "seed": 4,
-        "wallMs": 178.5,
+        "wallMs": 165.3,
         "MN9": 0,
         "L": 54,
         "R": 0,
@@ -282,7 +282,7 @@
       },
       {
         "seed": 5,
-        "wallMs": 179.8,
+        "wallMs": 166.3,
         "MN9": 0,
         "L": 54,
         "R": 0,
@@ -290,7 +290,7 @@
       },
       {
         "seed": 6,
-        "wallMs": 180.9,
+        "wallMs": 169.8,
         "MN9": 0,
         "L": 55,
         "R": 0,
@@ -298,7 +298,7 @@
       },
       {
         "seed": 7,
-        "wallMs": 190.6,
+        "wallMs": 167.4,
         "MN9": 0,
         "L": 55,
         "R": 0,
@@ -306,7 +306,7 @@
       },
       {
         "seed": 8,
-        "wallMs": 171.5,
+        "wallMs": 167.9,
         "MN9": 0,
         "L": 54,
         "R": 0,
@@ -314,7 +314,7 @@
       },
       {
         "seed": 9,
-        "wallMs": 194.3,
+        "wallMs": 167.4,
         "MN9": 0,
         "L": 49,
         "R": 0,
@@ -322,7 +322,7 @@
       },
       {
         "seed": 10,
-        "wallMs": 174.4,
+        "wallMs": 166.6,
         "MN9": 0,
         "L": 55,
         "R": 0,
@@ -498,6 +498,166 @@
       "x": 320,
       "y": 200,
       "distance": 0,
+      "encounters": {
+        "sugar": 0,
+        "bitter": 0,
+        "obstacle": 0,
+        "dopamine": 0
+      },
+      "peakDA": 0,
+      "lastDA": 0
+    },
+    "gfRush": {
+      "time": 16000,
+      "samples": 160,
+      "steps": 1022,
+      "x": 184.6130446950551,
+      "y": 115.98105709499754,
+      "distance": 1494.9600000000105,
+      "encounters": {
+        "sugar": 0,
+        "bitter": 0,
+        "obstacle": 0,
+        "dopamine": 0
+      },
+      "peakDA": 0,
+      "lastDA": 0
+    },
+    "zigzag": {
+      "time": 7600,
+      "samples": 76,
+      "steps": 380,
+      "x": 626.9865555626623,
+      "y": 215.7826642893482,
+      "distance": 631.6800000000009,
+      "encounters": {
+        "sugar": 0,
+        "bitter": 0,
+        "obstacle": 1,
+        "dopamine": 0
+      },
+      "peakDA": 0,
+      "lastDA": 0
+    },
+    "spiral": {
+      "time": 11400,
+      "samples": 114,
+      "steps": 276,
+      "x": 521.1329695122831,
+      "y": 347.23682442795445,
+      "distance": 539.0400000000005,
+      "encounters": {
+        "sugar": 0,
+        "bitter": 0,
+        "obstacle": 0,
+        "dopamine": 0
+      },
+      "peakDA": 0,
+      "lastDA": 0
+    },
+    "dineDash": {
+      "time": 14700,
+      "samples": 147,
+      "steps": 2695,
+      "x": 627.9852497966763,
+      "y": 211.61124825997928,
+      "distance": 589.9200000000003,
+      "encounters": {
+        "sugar": 4,
+        "bitter": 0,
+        "obstacle": 5,
+        "dopamine": 0
+      },
+      "peakDA": 12.5,
+      "lastDA": 0
+    },
+    "ignoreSugar": {
+      "time": 9700,
+      "samples": 97,
+      "steps": 3384,
+      "x": 501.2397358203342,
+      "y": 209.42018282935106,
+      "distance": 462.7199999999996,
+      "encounters": {
+        "sugar": 5,
+        "bitter": 0,
+        "obstacle": 0,
+        "dopamine": 0
+      },
+      "peakDA": 0,
+      "lastDA": 0
+    },
+    "pinball": {
+      "time": 25000,
+      "samples": 250,
+      "steps": 208,
+      "x": 343.06387550790527,
+      "y": 15.227766778007721,
+      "distance": 1449.3600000000224,
+      "encounters": {
+        "sugar": 0,
+        "bitter": 0,
+        "obstacle": 7,
+        "dopamine": 0
+      },
+      "peakDA": 0,
+      "lastDA": 0
+    },
+    "panic": {
+      "time": 10000,
+      "samples": 100,
+      "steps": 572,
+      "x": 404.45044583669926,
+      "y": 207.35854615646053,
+      "distance": 568.2599999999991,
+      "encounters": {
+        "sugar": 0,
+        "bitter": 0,
+        "obstacle": 0,
+        "dopamine": 0
+      },
+      "peakDA": 13.75,
+      "lastDA": 0
+    },
+    "guard": {
+      "time": 21000,
+      "samples": 210,
+      "steps": 11387,
+      "x": 513.8745883876935,
+      "y": 255.0583714195386,
+      "distance": 1860.4800000000218,
+      "encounters": {
+        "sugar": 0,
+        "bitter": 0,
+        "obstacle": 0,
+        "dopamine": 0
+      },
+      "peakDA": 0,
+      "lastDA": 0
+    },
+    "bitterFeast": {
+      "time": 16700,
+      "samples": 167,
+      "steps": 3909,
+      "x": 617.0218705346277,
+      "y": 222.2217037084013,
+      "distance": 569.8,
+      "encounters": {
+        "sugar": 3,
+        "bitter": 6,
+        "obstacle": 0,
+        "dopamine": 0
+      },
+      "peakDA": 0,
+      "lastDA": 0
+    },
+    "remote": {
+      "time": 35300,
+      "samples": 353,
+      "steps": 19140,
+      "x": 101.4777063158471,
+      "y": 38.300954471566065,
+      "distance": 2888.400000000012,
       "encounters": {
         "sugar": 0,
         "bitter": 0,
