@@ -106,7 +106,7 @@ npm test
 npm run build
 ```
 
-`src/`, `data/`, `fonts/`나 문서를 고친 뒤 빌드하면 루트의 `index.html`, `동현초-v0.6.html`, 분리 파일판 `dist/`, `examples/*.dh`가 새로 만들어진다. `PROVENANCE.md`, `CREDITS.md`, `licenses/`의 내용도 이때 앱의 ‘모델과 출처’ 안으로 들어간다. 생성된 `index.html`을 직접 고치면 다음 빌드에서 덮어써지니, 원본인 `src/`와 문서를 고치는 편이 좋다.
+`src/`, `data/`, `fonts/`나 문서를 고친 뒤 빌드하면 루트의 `index.html`, `동현초-v0.7.html`, 분리 파일판 `dist/`, `examples/*.dh`가 새로 만들어진다. `PROVENANCE.md`, `CREDITS.md`, `licenses/`의 내용도 이때 앱의 ‘모델과 출처’ 안으로 들어간다. 생성된 `index.html`을 직접 고치면 다음 빌드에서 덮어써지니, 원본인 `src/`와 문서를 고치는 편이 좋다.
 
 ## 이용 조건
 
