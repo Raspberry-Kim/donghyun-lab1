@@ -72,7 +72,7 @@ $('#open').onchange=async e=>{
 $('#csv').onclick=()=>{
   const rows=allSamples.length?allSamples:samples,keys=['ms','MN9_L','MN9_R','DNa02_L','DNa02_R','GF_L','GF_R','DA','x','y','active','distance','velocity','dopamineStim','sugarStim','bitterStim','collision'];
   const quote=x=>'"'+String(x).replaceAll('"','""')+'"';
-  const meta=[['# model','동현초 0.5 / FlyWire v783 / 1758 neurons / 121135 edges'],['# data','FlyWire Consortium / reduced, reindexed; not endorsed by FlyWire. Noncommercial use following FlyWire guidelines (CC BY-NC 4.0); Zenodo 10676866 metadata lists CC BY 4.0. See credits for discrepancy.'],['# credits','https://flywire.ai/guidelines'],['# seed',state?.seed],['# code',lastSource]];
+  const meta=[['# model','동현초 0.6 / FlyWire v783 / 1758 neurons / 121135 edges'],['# data','FlyWire Consortium / reduced, reindexed; not endorsed by FlyWire. Noncommercial use following FlyWire guidelines (CC BY-NC 4.0); Zenodo 10676866 metadata lists CC BY 4.0. See credits for discrepancy.'],['# credits','https://flywire.ai/guidelines'],['# seed',state?.seed],['# code',lastSource]];
   download('초파리-관측.csv','text/csv;charset=utf-8','\ufeff'+meta.map(r=>r.map(quote).join(',')).join('\n')+'\n'+keys.join(',')+'\n'+rows.map(r=>keys.map(k=>Number(r[k]).toFixed(k==='ms'?0:3)).join(',')).join('\n'));
 };
 function receive(m){
@@ -144,6 +144,20 @@ function pebble(o){
   ctx.beginPath();ctx.arc(0,5,3.2,0,Math.PI);ctx.stroke();
   ctx.restore();
 }
+// Pixel-art fly drawn cell by cell (head +x, wings back). The upper half is mirrored for the lower half;
+// the two leg rows alternate while walking. Sprites are cached per leg frame, feeding and theme.
+const FLY_PX=46/21,flySprites=new Map();
+const FLY_LEGS=[["..ggg...ll..l..ll....", ".gWWWg....l.l.l...aa.", "gWWWWWg....lll....a.."], ["..ggg....ll.llll.....", ".gWWWg....l.l.l...aa.", "gWWWWWg....lll....a.."]];
+const FLY_BODY=[".gWWoooooo.lll.ooooo.", "..gohhshsboooooeeeffo", "..obbbsbsbotttoekwffo", ".obbbbsbsbotttoekkpfo", ".obbbbsbsbotttofffffoXX"];
+function flySprite(leg,feed,dark){
+  const key=leg+'|'+feed+'|'+dark;if(flySprites.has(key))return flySprites.get(key);
+  const top=[...FLY_LEGS[leg],...FLY_BODY],bottom=[...FLY_LEGS[1-leg],...FLY_BODY].reverse(),rows=[...top,...bottom];
+  const col={o:'#7d5c43',b:'#edc779',h:'#ffe8b3',s:'#c39a5e',t:'#d5a36b',f:'#f8dda8',e:'#d87866',k:'#4c352e',w:'#fffdf4',p:'#f3ad94',
+    W:dark?'#d9efee':'#eef9f5',g:dark?'#9fc4c8':'#94b6b9',l:dark?'#d8bd9d':'#80644e',a:'#98734f',X:'#e2b25e'};
+  const w=23,h=rows.length,cv=document.createElement('canvas');cv.width=w;cv.height=h;const g=cv.getContext('2d');
+  rows.forEach((r,y)=>[...r].forEach((c,x)=>{if(c==='.'||(c==='X'&&!feed))return;g.fillStyle=col[c];g.fillRect(x,y,1,1);}));
+  const out={canvas:cv,x0:-24,y0:-h/2*FLY_PX,w,h};flySprites.set(key,out);return out;
+}
 function drawArena(now){
   const s=state||fallback,ratio=Math.min(1,(now-lastFrame)/100);
   const arenaFont=Math.max(12,12*640/(canvas.getBoundingClientRect().width||640));
@@ -181,40 +195,12 @@ function drawArena(now){
     for(const [g,sign]of [[3,-1],[4,1]])if(s.drives[g])for(let j=0;j<3;j++){ctx.beginPath();ctx.arc(0,0,30+j*9,sign>0?.35:-2.8,sign>0?2.8:-.35);ctx.stroke();}
     ctx.restore();
   }
-  // v0.4: 20% smaller drawing scale. Physics and the collision radius are unchanged.
-  ctx.save();ctx.translate(x,y);ctx.rotate(a);ctx.scale(.94,.94);
-  const moving=busy&&s.velocity>0&&!reduced,phase=moving?now*.018:0;
-  ctx.lineCap='round';ctx.lineJoin='round';
+  // v0.6: pixel-art fly, 5% smaller than v0.5. Physics and the collision radius are unchanged.
+  const moving=busy&&s.velocity>0&&!reduced;
+  const sprite=flySprite(moving?Math.floor(now/110)%2:0,!!s.feed,dark);
+  ctx.save();ctx.translate(x,y);ctx.rotate(a);ctx.scale(.94*.95,.94*.95);ctx.imageSmoothingEnabled=false;
   if(s.jump){ctx.shadowColor='#a87d3566';ctx.shadowBlur=8;}
-  // Cartoon fly: head +x. Both wings extend BACK (-x) from the thorax.
-  // Their posterior lobes (-24,±14) meet anteriorly at (3,0): a clear >, never <.
-  ctx.strokeStyle=dark?'#d8bd9d':'#80644e';ctx.lineWidth=1.5;
-  for(const side of [-1,1])for(let j=0;j<3;j++){
-    const base=-8+j*6.5,wave=moving?Math.sin(phase+j*2+side)*1.8:0;
-    ctx.beginPath();ctx.moveTo(base,side*5);ctx.lineTo(base-2+wave,side*10);ctx.lineTo(base+(j-1)*5.5+wave,side*16.5);ctx.stroke();
-  }
-  ctx.fillStyle='#edc779';ctx.strokeStyle='#98734f';ctx.lineWidth=1.3;
-  ctx.beginPath();ctx.ellipse(-8,0,12.5,8.5,0,0,Math.PI*2);ctx.fill();ctx.stroke();
-  ctx.fillStyle='#ffe8b3';ctx.beginPath();ctx.ellipse(-9,-3,7,2.5,-.12,0,Math.PI*2);ctx.fill();
-  ctx.strokeStyle='#be965c';ctx.lineWidth=1.5;
-  for(const bx of [-13,-7]){ctx.beginPath();ctx.moveTo(bx,-6);ctx.quadraticCurveTo(bx-2,0,bx,6);ctx.stroke();}
-  for(const side of [-1,1]){
-    ctx.fillStyle=dark?'#d9efeedb':'#f0faf6ed';ctx.strokeStyle=dark?'#b5d5d8':'#a1bec0';ctx.lineWidth=1;
-    ctx.beginPath();ctx.moveTo(3,side*1);
-    ctx.bezierCurveTo(-5,side*8,-19,side*21,-24,side*14);
-    ctx.bezierCurveTo(-29,side*7,-12,side*1,3,side*1);ctx.closePath();ctx.fill();ctx.stroke();
-    ctx.strokeStyle='#b7d1d2b0';ctx.lineWidth=.65;ctx.beginPath();ctx.moveTo(2,side*2);ctx.quadraticCurveTo(-9,side*5,-22,side*13);ctx.stroke();
-    ctx.strokeStyle='#fffffff0';ctx.lineWidth=1.1;ctx.beginPath();ctx.moveTo(-10,side*8);ctx.quadraticCurveTo(-17,side*14,-21,side*13);ctx.stroke();
-  }
-  ctx.lineWidth=1.2;circle(3,0,6.3,'#d5a36b','#98734f');circle(12.5,0,7.8,'#f8dda8','#98734f');
-  circle(1.5,-2,2.2,'#edc892');
-  for(const side of [-1,1]){
-    circle(14,side*5,5.6,'#d87866','#a65f4e');
-    circle(15.4,side*5,2.65,'#4c352e');circle(16.2,side*5-1.1,1.25,'#fffdf4');circle(14.4,side*5+1.1,.5,'#f3ba99');
-    ctx.strokeStyle='#98734f';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(18,side*3);ctx.quadraticCurveTo(23,side*4,22,side*7.8);ctx.stroke();circle(22,side*7.8,1.15,'#b48961');
-  }
-  ctx.strokeStyle='#98734f';ctx.lineWidth=1.1;ctx.beginPath();ctx.arc(18,0,2.1,-.65,.65);ctx.stroke();
-  if(s.feed){ctx.strokeStyle='#c58d52';ctx.lineWidth=2.1;ctx.beginPath();ctx.moveTo(20,0);ctx.lineTo(28,0);ctx.stroke();circle(29,0,2.6,'#efc575','#b58c56');}
+  ctx.drawImage(sprite.canvas,sprite.x0,sprite.y0,sprite.w*FLY_PX,sprite.h*FLY_PX);
   ctx.restore();
   ctx.textAlign='left';ctx.font=(arenaFont*.85)+'px "Nanum Gothic Coding"';ctx.fillStyle=dark?'#efe6d8':'#6e6356';ctx.fillText('01',x+24,y-21);
 }
