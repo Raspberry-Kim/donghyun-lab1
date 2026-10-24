@@ -72,7 +72,7 @@ $('#open').onchange=async e=>{
 $('#csv').onclick=()=>{
   const rows=allSamples.length?allSamples:samples,keys=['ms','MN9_L','MN9_R','DNa02_L','DNa02_R','GF_L','GF_R','DA','x','y','active','distance','velocity','dopamineStim','sugarStim','bitterStim','collision'];
   const quote=x=>'"'+String(x).replaceAll('"','""')+'"';
-  const meta=[['# model','동현초 0.9 / FlyWire v783 / 1758 neurons / 121135 edges'],['# data','FlyWire Consortium / reduced, reindexed; not endorsed by FlyWire. Noncommercial use following FlyWire guidelines (CC BY-NC 4.0); Zenodo 10676866 metadata lists CC BY 4.0. See credits for discrepancy.'],['# credits','https://flywire.ai/guidelines'],['# seed',state?.seed],['# code',lastSource]];
+  const meta=[['# model','동현초 1.0 / FlyWire v783 / 1758 neurons / 121135 edges'],['# data','FlyWire Consortium / reduced, reindexed; not endorsed by FlyWire. Noncommercial use following FlyWire guidelines (CC BY-NC 4.0); Zenodo 10676866 metadata lists CC BY 4.0. See credits for discrepancy.'],['# credits','https://flywire.ai/guidelines'],['# seed',state?.seed],['# code',lastSource]];
   download('초파리-관측.csv','text/csv;charset=utf-8','\ufeff'+meta.map(r=>r.map(quote).join(',')).join('\n')+'\n'+keys.join(',')+'\n'+rows.map(r=>keys.map(k=>Number(r[k]).toFixed(k==='ms'?0:3)).join(',')).join('\n'));
 };
 function receive(m){
@@ -144,27 +144,27 @@ function pebble(o){
   ctx.beginPath();ctx.arc(0,5,3.2,0,Math.PI);ctx.stroke();
   ctx.restore();
 }
-// v0.9: a cartoon pixel-art fly. Chubby striped body, small round head with two shiny red eyes,
-// two round wings on the thorax (a gesture, not anatomy), and an exaggerated sipping straw.
-// Drawn cell by cell (head +x). Physics and the collision radius are unchanged.
-const FLY_PX=1.65,flySprites=new Map();
-const FLY_FRAMES=[[".............................", "...................l..l......", ".......l..........l..l.......", "........l.........l.l........", ".....ooool....oool.loooo.....", "...oobsbbbol.ottto.offeeo.a..", "..osbbsbbbbbotthhtoffeewea...", ".obsbbsbbbbbtthtttffffeefo...", "obbsbbsbbbbbttttttffffffpo...", ".obsbbsbbbbbttttttffffeefo...", "..osbbsbbbbbotttttoffeeweo...", "...oobsbbbol.ottto.offeeoa...", ".....ooool....oool.loooo..a..", "........l.........l.l........", ".......l..........l..l.......", "...................l..l......", "............................."], [".............................", "..................l....l.....", "......l...........l..l.......", "........l.........l.l........", ".....ooool....oool.loooo.....", "...oobsbbbol.ottto.offeeo.a..", "..osbbsbbbbbotthhtoffeewea...", ".obsbbsbbbbbtthtttffffeefo...", "obbsbbsbbbbbttttttffffffpo...", ".obsbbsbbbbbttttttffffeefo...", "..osbbsbbbbbotttttoffeeweo...", "...oobsbbbol.ottto.offeeoa...", ".....ooool....oool.loooo..a..", "........l.........l.l........", "......l...........l..l.......", "..................l....l.....", "............................."]];
-const FLY_WINGS=["............gg...............", "..........ggWWgg.............", ".........gWWQQWWg............", "........gWWQWWWWWg...........", "........gWWWWWWWWg...........", ".........gWWWWWWg............", "..........gggggg.............", ".............................", ".............................", ".............................", "..........gggggg.............", ".........gWWWWWWg............", "........gWWWWWWWWg...........", "........gWWWQQWWWg...........", ".........gWQWWWWg............", "..........ggWWgg.............", "............gg..............."];
+// v1.0: a cartoon pixel-art fly redrawn from a reference sketch. Segmented orange abdomen, thorax and a round
+// head (head : thorax = 3 : 2) with big round eyes, three pairs of legs, toned-down see-through wings under the body,
+// and the exaggerated sipping straw. Drawn cell by cell (head +x). Physics and the collision radius are unchanged.
+const FLY_PX=1.1786,flySprites=new Map();
+const FLY_FRAMES=[[".........................................", "..........l..........l...................", "..........ll.........l........l..........", "...........ll........l.......l...........", "............l........l.....ll............", ".............ll......ll....l.............", "..............lll.....l....l.............", "................ll....l....l..ooooooo....", "........ooooo....ll...l...lloofffooooo...", ".....ooobbsbbooo..lloolo.l.offffokeeeooaa", "...oobsbbbsbbbsboo.lttttl.offffokkwnneao.", "..obbsbbbsbbbbsbbbotthhttooffffokennneao.", ".obbbsbbbsbbbsbbbbothhhttofffhfokknnneoo.", ".obbbsbbbsbbbsbbbotttttttoffhhhfokeeeoo..", ".obbbsbbbsbbbsbbbotttttttoffhhhffoooofo..", ".obbbsbbbsbbbsbbbotttttttoffhhhfooeeooo..", ".obbbsbbbsbbbsbbbotttttttofffhffokwnnao..", "..obbsbbbsbbbbsbbbottttttooffffokknnneao.", "...obsbbbbsbbbsbbo.ltttttooffffokknnneao.", "....oosbbbsbbbsoo.llottool.offffokeeeooaa", "......ooooooooo..ll..ol...llofffooeeooo..", "................ll....l....l.ooooooooo...", "..............lll.....l....l......oo.....", ".............ll......ll....l.............", "............l........l.....ll............", "...........ll........l.......l...........", "..........ll.........l........l..........", "..........l..........l...................", "........................................."], [".........................................", ".........l.........ll....................", ".........ll.........l.........ll.........", "...........l........ll.......ll..........", "............l........l.....lll...........", ".............ll......ll....l.............", "..............lll.....l....l.............", "................ll....l....l..ooooooo....", "........ooooo....ll...l...lloofffooooo...", ".....ooobbsbbooo..lloolo.l.offffokeeeooaa", "...oobsbbbsbbbsboo.lttttl.offffokkwnneao.", "..obbsbbbsbbbbsbbbotthhttooffffokennneao.", ".obbbsbbbsbbbsbbbbothhhttofffhfokknnneoo.", ".obbbsbbbsbbbsbbbotttttttoffhhhfokeeeoo..", ".obbbsbbbsbbbsbbbotttttttoffhhhffoooofo..", ".obbbsbbbsbbbsbbbotttttttoffhhhfooeeooo..", ".obbbsbbbsbbbsbbbotttttttofffhffokwnnao..", "..obbsbbbsbbbbsbbbottttttooffffokknnneao.", "...obsbbbbsbbbsbbo.ltttttooffffokknnneao.", "....oosbbbsbbbsoo.llottool.offffokeeeooaa", "......ooooooooo..ll..ol...llofffooeeooo..", "................ll....l....l.ooooooooo...", "..............lll.....l....l......oo.....", ".............ll......ll....l.............", "............l........l.....lll...........", "...........l........ll.......ll..........", ".........ll.........l.........ll.........", ".........l.........ll....................", "........................................."]];
+const FLY_WINGS=[".........................................", ".........................................", "......ggggggg............................", ".....gWWWWWWWgg..........................", ".....gWWWQQQWWWgg........................", ".....gWWWWQQQWWWWg.......................", "......gWWWWWWWWWWWg......................", ".......gWWWWWWWWWWWg.....................", ".............WWWWWWg.....................", "................WWWW.....................", "..................WW.....................", ".........................................", ".........................................", ".........................................", ".........................................", ".........................................", ".........................................", ".........................................", "..................Wg.....................", ".................WWW.....................", "...............WWWWWg....................", ".......gWWWWWWWWWWWg.....................", "......gWWWWWWWWWWWg......................", "......gWWWWQQWWWWg.......................", ".....gWWWQQQWWWWg........................", ".....gWWQQWWWWgg.........................", "......ggWWgggg...........................", "........gg...............................", "........................................."];
 function flySprite(leg,feed,dark,sip=0){
   const key=leg+'|'+feed+'|'+dark+'|'+sip;if(flySprites.has(key))return flySprites.get(key);
-  const col={o:'#6f5140',b:'#efc574',s:'#8a5a38',t:'#d48f4b',h:'#f0c28a',e:'#d9483a',w:'#fff6ec',f:'#eab56c',p:'#f2a08e',
-    l:dark?'#d8bd9d':'#6f5140',a:dark?'#d8bd9d':'#6f5140',W:dark?'rgba(226,242,244,.93)':'rgba(236,248,249,.96)',Q:'#ffffff',g:dark?'#9cc3cb':'#7aa6b0'};
-  const rows=FLY_FRAMES[leg],mouth=25,straw=feed?13:0,w=feed?mouth+straw:rows[0].length,h=rows.length,cv=document.createElement('canvas');cv.width=w;cv.height=h;const g=cv.getContext('2d');
+  const col={o:'#4a3328',b:'#e8662a',s:'#a8461f',t:'#ec6f2c',h:'#f8a866',f:'#f07a2e',e:'#fffaf2',k:'#bcd3da',n:'#2b211d',w:'#ffffff',
+    l:dark?'#d8bd9d':'#4a3328',a:dark?'#d8bd9d':'#4a3328',W:dark?'rgba(150,160,156,.74)':'rgba(178,186,182,.78)',Q:dark?'rgba(196,204,198,.8)':'rgba(214,220,214,.84)',g:dark?'#a3aca8':'#686e6a'};
+  const rows=FLY_FRAMES[leg],mouth=37,straw=feed?18:0,w=feed?mouth+straw:rows[0].length,h=rows.length,cv=document.createElement('canvas');cv.width=w;cv.height=h;const g=cv.getContext('2d');
   const paint=(r,y)=>[...r].forEach((c,x)=>{if(c==='.')return;g.fillStyle=col[c];g.fillRect(x,y,1,1);});
   rows.forEach(paint);FLY_WINGS.forEach(paint);
   if(feed){ // Cartoon straw: real flies sponge food with a short proboscis.
     const x0=mouth,c=(h-1)/2;
     for(let x=x0;x<x0+straw;x++){
-      const end=x>=x0+straw-2,half=end?2:1;
+      const end=x>=x0+straw-3,half=end?3:2; // same on-screen straw as before, in the finer cells
       g.fillStyle='#7d5c43';g.fillRect(x,c-half-1,1,half*2+3);
       for(let y=c-half;y<=c+half;y++){g.fillStyle=((x+y+sip)%4<2)?'#e2493a':'#fff6ec';g.fillRect(x,y,1,1);}
     }
-    g.fillStyle='#f3cf63';g.fillRect(x0+straw-3-((sip*3)%(straw-3)),c,2,1); // a sugar sip travelling to the mouth
+    g.fillStyle='#f3cf63';g.fillRect(x0+straw-4-((sip*4)%(straw-4)),c,3,1); // a sugar sip travelling to the mouth
   }
   const out={canvas:cv,x0:-24,y0:-h/2*FLY_PX,w,h};flySprites.set(key,out);return out;
 }
@@ -205,7 +205,7 @@ function drawArena(now){
     for(const [g,sign]of [[3,-1],[4,1]])if(s.drives[g])for(let j=0;j<3;j++){ctx.beginPath();ctx.arc(0,0,30+j*9,sign>0?.35:-2.8,sign>0?2.8:-.35);ctx.stroke();}
     ctx.restore();
   }
-  // v0.9: cartoon pixel-art fly. Physics and the collision radius are unchanged.
+  // v1.0: cartoon pixel-art fly. Physics and the collision radius are unchanged.
   const moving=busy&&s.velocity>0&&!reduced;
   const sprite=flySprite(moving?Math.floor(now/110)%2:0,!!s.feed,dark,reduced?0:Math.floor(now/90)%4);
   ctx.save();ctx.translate(x,y);ctx.rotate(a);ctx.scale(.94*.95,.94*.95);ctx.imageSmoothingEnabled=false;
