@@ -72,7 +72,7 @@ $('#open').onchange=async e=>{
 $('#csv').onclick=()=>{
   const rows=allSamples.length?allSamples:samples,keys=['ms','MN9_L','MN9_R','DNa02_L','DNa02_R','GF_L','GF_R','DA','x','y','active','distance','velocity','dopamineStim','sugarStim','bitterStim','collision'];
   const quote=x=>'"'+String(x).replaceAll('"','""')+'"';
-  const meta=[['# model','동현초 0.7 / FlyWire v783 / 1758 neurons / 121135 edges'],['# data','FlyWire Consortium / reduced, reindexed; not endorsed by FlyWire. Noncommercial use following FlyWire guidelines (CC BY-NC 4.0); Zenodo 10676866 metadata lists CC BY 4.0. See credits for discrepancy.'],['# credits','https://flywire.ai/guidelines'],['# seed',state?.seed],['# code',lastSource]];
+  const meta=[['# model','동현초 0.8 / FlyWire v783 / 1758 neurons / 121135 edges'],['# data','FlyWire Consortium / reduced, reindexed; not endorsed by FlyWire. Noncommercial use following FlyWire guidelines (CC BY-NC 4.0); Zenodo 10676866 metadata lists CC BY 4.0. See credits for discrepancy.'],['# credits','https://flywire.ai/guidelines'],['# seed',state?.seed],['# code',lastSource]];
   download('초파리-관측.csv','text/csv;charset=utf-8','\ufeff'+meta.map(r=>r.map(quote).join(',')).join('\n')+'\n'+keys.join(',')+'\n'+rows.map(r=>keys.map(k=>Number(r[k]).toFixed(k==='ms'?0:3)).join(',')).join('\n'));
 };
 function receive(m){
@@ -144,21 +144,21 @@ function pebble(o){
   ctx.beginPath();ctx.arc(0,5,3.2,0,Math.PI);ctx.stroke();
   ctx.restore();
 }
-// v0.7: slimmer pixel-art fly (30% narrower), round head with large brick-red eyes,
-// wings hinged on the thorax and lying over the back, and an exaggerated sipping straw.
+// v0.8: a cute reinterpretation of the fruit fly. Slim striped body, small round head
+// with two red eyes, teardrop wings hinged on the thorax, and an exaggerated sipping straw.
 // Drawn cell by cell (head +x). Physics and the collision radius are unchanged.
 const FLY_PX=1.65,flySprites=new Map();
-const FLY_FRAMES=[["............l.l.....l..........", ".............l.l...l.ooooo.....", ".............l..l..lokkeeeo....", ".....oooo....ooooo.oeeeewweo...", "..ooosbsbooootthttoeeeeeweeeo..", ".obsbsbsbsbsothhhteeeeeeeeeefoa", "osbsbsbsbsbstttttteeeeeefffffo.", "osbsbsbsbsbstttttteeeeeefffffo.", "osbsbsbsbsbstttttteeeeeefffffo.", ".obsbsbsbsbsothhhteeeeeeeeeefoa", "..ooosbsbooootthttoeeeeeweeeo..", ".....oooo....ooooo.oeeeewweo...", ".............l..l..lokkeeeo....", ".............l.l...l.ooooo.....", "............l.l.....l.........."], ["...........l...l.....l.........", "............l...l...looooo.....", ".............l..l..lokkeeeo....", ".....oooo....ooooo.oeeeewweo...", "..ooosbsbooootthttoeeeeeweeeo..", ".obsbsbsbsbsothhhteeeeeeeeeefoa", "osbsbsbsbsbstttttteeeeeefffffo.", "osbsbsbsbsbstttttteeeeeefffffo.", "osbsbsbsbsbstttttteeeeeefffffo.", ".obsbsbsbsbsothhhteeeeeeeeeefoa", "..ooosbsbooootthttoeeeeeweeeo..", ".....oooo....ooooo.oeeeewweo...", ".............l..l..lokkeeeo....", "............l...l...looooo.....", "...........l...l.....l........."]];
-const FLY_WINGS=["...............................", "gggggggg.......................", "gvvvvWWWggg....................", ".gggWvvvvvWgg..................", "....gggWWWvvvgg................", ".......ggggggggg...............", "...............................", "...............................", "...............................", ".......ggggggggg...............", "....gggWWWvvvgg................", ".gggWvvvvvWgg..................", "gvvvvWWWggg....................", "gggggggg.......................", "..............................."];
+const FLY_FRAMES=[[".............................", ".............................", ".............................", ".............l.l...l.........", "......oooo...l..l..l.ooo.....", "...ooobbsbooo.lolol.oeewo....", "..obbsbbsbbsbotthttofeeeo.a..", ".osbbsbbsbbsbbtthhtffkeffa...", ".osbbsbbsbbsbttttttffffffo...", ".osbbsbbsbbsbbtttttffkeffo...", "..obbsbbsbbsbotttttofeeeoa...", "...ooobbsbooo.ooooo.oeewo.a..", "......oooo....l.l.l..ooo.....", ".............l..l..l.........", ".............l.l...l.........", ".............................", "............................."], [".............................", ".............................", ".............................", "............l...l...l........", "......oooo...l..l..l.ooo.....", "...ooobbsbooo.lolol.oeewo....", "..obbsbbsbbsbotthttofeeeo.a..", ".osbbsbbsbbsbbtthhtffkeffa...", ".osbbsbbsbbsbttttttffffffo...", ".osbbsbbsbbsbbtttttffkeffo...", "..obbsbbsbbsbotttttofeeeoa...", "...ooobbsbooo.ooooo.oeewo.a..", "......oooo....l.l.l..ooo.....", ".............l..l..l.........", "............l...l...l........", ".............................", "............................."]];
+const FLY_WINGS=[".............................", ".............................", "....ggg......................", "...gWWWggg...................", "...gWWvvWWgg.................", "....gWWvvvvWgg...............", ".....ggggWWvvWg..............", ".........gggggg..............", ".............................", ".........gggggg..............", ".....ggggWWvvWg..............", "....gWWvvvvWgg...............", "...gWWvvWWgg.................", "...gWWWggg...................", "....ggg......................", ".............................", "............................."];
 function flySprite(leg,feed,dark,sip=0){
   const key=leg+'|'+feed+'|'+dark+'|'+sip;if(flySprites.has(key))return flySprites.get(key);
-  const col={o:'#7d5c43',b:'#ecc274',s:'#6f4a32',t:'#c98a52',h:'#e2ab73',e:'#d2432f',k:'#9a2f26',w:'#ffd9cb',f:'#eab06e',
-    l:dark?'#d8bd9d':'#80644e',a:'#98734f',W:dark?'rgba(222,240,240,.42)':'rgba(246,253,250,.42)',v:dark?'rgba(170,205,208,.6)':'rgba(150,185,188,.55)',g:dark?'rgba(160,196,200,.9)':'rgba(128,165,172,.88)'};
-  const rows=FLY_FRAMES[leg],straw=feed?13:0,w=rows[0].length+straw,h=rows.length,cv=document.createElement('canvas');cv.width=w;cv.height=h;const g=cv.getContext('2d');
+  const col={o:'#7d5c43',b:'#efc678',s:'#8a5a38',t:'#d0924f',h:'#ecbf86',e:'#d84a3b',k:'#a63a30',w:'#fff3e8',f:'#e7b06a',
+    l:dark?'#d8bd9d':'#7d604a',a:'#98734f',W:dark?'rgba(226,242,244,.5)':'rgba(244,252,252,.48)',v:dark?'rgba(190,220,224,.6)':'rgba(180,210,214,.55)',g:dark?'rgba(170,204,210,.9)':'rgba(140,178,186,.85)'};
+  const rows=FLY_FRAMES[leg],mouth=25,straw=feed?13:0,w=feed?mouth+straw:rows[0].length,h=rows.length,cv=document.createElement('canvas');cv.width=w;cv.height=h;const g=cv.getContext('2d');
   const paint=(r,y)=>[...r].forEach((c,x)=>{if(c==='.')return;g.fillStyle=col[c];g.fillRect(x,y,1,1);});
   rows.forEach(paint);FLY_WINGS.forEach(paint);
   if(feed){ // Cartoon straw: real flies sponge food with a short proboscis.
-    const x0=rows[0].length-1,c=(h-1)/2;
+    const x0=mouth,c=(h-1)/2;
     for(let x=x0;x<x0+straw;x++){
       const end=x>=x0+straw-2,half=end?2:1;
       g.fillStyle='#7d5c43';g.fillRect(x,c-half-1,1,half*2+3);
@@ -205,7 +205,7 @@ function drawArena(now){
     for(const [g,sign]of [[3,-1],[4,1]])if(s.drives[g])for(let j=0;j<3;j++){ctx.beginPath();ctx.arc(0,0,30+j*9,sign>0?.35:-2.8,sign>0?2.8:-.35);ctx.stroke();}
     ctx.restore();
   }
-  // v0.7: slimmer pixel-art fly at the same length. Physics and the collision radius are unchanged.
+  // v0.8: cute pixel-art fly. Physics and the collision radius are unchanged.
   const moving=busy&&s.velocity>0&&!reduced;
   const sprite=flySprite(moving?Math.floor(now/110)%2:0,!!s.feed,dark,reduced?0:Math.floor(now/90)%4);
   ctx.save();ctx.translate(x,y);ctx.rotate(a);ctx.scale(.94*.95,.94*.95);ctx.imageSmoothingEnabled=false;
