@@ -72,7 +72,7 @@ $('#open').onchange=async e=>{
 $('#csv').onclick=()=>{
   const rows=allSamples.length?allSamples:samples,keys=['ms','MN9_L','MN9_R','DNa02_L','DNa02_R','GF_L','GF_R','DA','x','y','active','distance','velocity','dopamineStim','sugarStim','bitterStim','collision'];
   const quote=x=>'"'+String(x).replaceAll('"','""')+'"';
-  const meta=[['# model','동현초 1.0 / FlyWire v783 / 1758 neurons / 121135 edges'],['# data','FlyWire Consortium / reduced, reindexed; not endorsed by FlyWire. Noncommercial use following FlyWire guidelines (CC BY-NC 4.0); Zenodo 10676866 metadata lists CC BY 4.0. See credits for discrepancy.'],['# credits','https://flywire.ai/guidelines'],['# seed',state?.seed],['# code',lastSource]];
+  const meta=[['# model','동현초 0.9 / FlyWire v783 / 1758 neurons / 121135 edges'],['# data','FlyWire Consortium / reduced, reindexed; not endorsed by FlyWire. Noncommercial use following FlyWire guidelines (CC BY-NC 4.0); Zenodo 10676866 metadata lists CC BY 4.0. See credits for discrepancy.'],['# credits','https://flywire.ai/guidelines'],['# seed',state?.seed],['# code',lastSource]];
   download('초파리-관측.csv','text/csv;charset=utf-8','\ufeff'+meta.map(r=>r.map(quote).join(',')).join('\n')+'\n'+keys.join(',')+'\n'+rows.map(r=>keys.map(k=>Number(r[k]).toFixed(k==='ms'?0:3)).join(',')).join('\n'));
 };
 function receive(m){
@@ -144,7 +144,7 @@ function pebble(o){
   ctx.beginPath();ctx.arc(0,5,3.2,0,Math.PI);ctx.stroke();
   ctx.restore();
 }
-// v1.0: a cartoon pixel-art fly redrawn from a reference sketch. Segmented orange abdomen, thorax and a round
+// v0.9 (2026-10-25): a cartoon pixel-art fly redrawn from a reference sketch. Segmented orange abdomen, thorax and a round
 // head (head : thorax = 3 : 2) with big round eyes, three pairs of legs, toned-down see-through wings under the body,
 // and the exaggerated sipping straw. Drawn cell by cell (head +x). Physics and the collision radius are unchanged.
 const FLY_PX=1.1786,flySprites=new Map();
@@ -205,7 +205,7 @@ function drawArena(now){
     for(const [g,sign]of [[3,-1],[4,1]])if(s.drives[g])for(let j=0;j<3;j++){ctx.beginPath();ctx.arc(0,0,30+j*9,sign>0?.35:-2.8,sign>0?2.8:-.35);ctx.stroke();}
     ctx.restore();
   }
-  // v1.0: cartoon pixel-art fly. Physics and the collision radius are unchanged.
+  // v0.9: cartoon pixel-art fly. Physics and the collision radius are unchanged.
   const moving=busy&&s.velocity>0&&!reduced;
   const sprite=flySprite(moving?Math.floor(now/110)%2:0,!!s.feed,dark,reduced?0:Math.floor(now/90)%4);
   ctx.save();ctx.translate(x,y);ctx.rotate(a);ctx.scale(.94*.95,.94*.95);ctx.imageSmoothingEnabled=false;
