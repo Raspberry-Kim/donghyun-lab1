@@ -37,6 +37,10 @@ function program(commands){return '나는 동현이냐?\n'+commands.flatMap(a=>a
 check('Output block and restoration',()=>{const last=execute(program([[1,7],[5,1,100],[7,2000],[6,5,1],[7,2000],[6,5,0],[7,2000]])).at(-1);const a=last.allSamples;assert(a.filter(x=>x.ms>2100&&x.ms<=4000).every(x=>x.MN9_L===0&&x.MN9_R===0));assert(a.filter(x=>x.ms>4500).some(x=>x.MN9_R>0));});
 check('Replay exact trace and samples',()=>assert.deepEqual(execute(exContext.EX[2].code).at(-1).allSamples,runs.obstacle.allSamples));
 check('Every walking example actually walks',()=>{for(const [k,r]of Object.entries(runs))if(k!=='blank')assert(r.state.distance>100,`${k} distance=${r.state.distance}`);});
+check('v0.5 wild examples tell their stories',()=>{const e=k=>runs[k].state.encounters,mn9=k=>{const s=runs[k].allSamples.at(-1);return (s.MN9_L+s.MN9_R)/2;};
+  assert(runs.gfRush.state.distance>800);assert.equal(e('dineDash').sugar,4);assert.equal(e('ignoreSugar').sugar,5);assert(mn9('ignoreSugar')>10);
+  assert(Math.max(...runs.panic.allSamples.map(x=>(x.GF_L+x.GF_R)/2))>100);assert(e('guard').obstacle<=3);assert.equal(e('bitterFeast').sugar,3);
+  assert(runs.remote.state.time>25000&&e('remote').obstacle===0);});
 check('Blank v0.1 control: 1 second, no movement or activity',()=>{assert.equal(runs.blank.state.time,1000);assert.equal(runs.blank.state.distance,0);assert(runs.blank.allSamples.every(x=>x.active===0));});
 check('Each of the two obstacles is encountered',()=>{for(const o of runs.obstacle.state.obstacles)assert(runs.obstacle.allSamples.some(s=>s.collision&&Math.hypot(s.x-o.x,s.y-o.y)<=o.r+11),'missed obstacle '+JSON.stringify(o));});
 check('Two meals: stop, resume, stop again',()=>{const a=runs.twoMeals.allSamples;assert(runs.twoMeals.state.encounters.sugar>=3);assert(a.filter(x=>x.ms>=4000&&x.ms<=5000).every(x=>x.velocity===0));assert(a.some(x=>x.ms>5000&&x.velocity>0));assert.equal(a.at(-1).velocity,0);assert(a.at(-1).x>360);});

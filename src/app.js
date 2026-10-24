@@ -72,7 +72,7 @@ $('#open').onchange=async e=>{
 $('#csv').onclick=()=>{
   const rows=allSamples.length?allSamples:samples,keys=['ms','MN9_L','MN9_R','DNa02_L','DNa02_R','GF_L','GF_R','DA','x','y','active','distance','velocity','dopamineStim','sugarStim','bitterStim','collision'];
   const quote=x=>'"'+String(x).replaceAll('"','""')+'"';
-  const meta=[['# model','동현초 0.4 / FlyWire v783 / 1758 neurons / 121135 edges'],['# data','FlyWire Consortium / reduced, reindexed; not endorsed by FlyWire. Noncommercial use following FlyWire guidelines (CC BY-NC 4.0); Zenodo 10676866 metadata lists CC BY 4.0. See credits for discrepancy.'],['# credits','https://flywire.ai/guidelines'],['# seed',state?.seed],['# code',lastSource]];
+  const meta=[['# model','동현초 0.5 / FlyWire v783 / 1758 neurons / 121135 edges'],['# data','FlyWire Consortium / reduced, reindexed; not endorsed by FlyWire. Noncommercial use following FlyWire guidelines (CC BY-NC 4.0); Zenodo 10676866 metadata lists CC BY 4.0. See credits for discrepancy.'],['# credits','https://flywire.ai/guidelines'],['# seed',state?.seed],['# code',lastSource]];
   download('초파리-관측.csv','text/csv;charset=utf-8','\ufeff'+meta.map(r=>r.map(quote).join(',')).join('\n')+'\n'+keys.join(',')+'\n'+rows.map(r=>keys.map(k=>Number(r[k]).toFixed(k==='ms'?0:3)).join(',')).join('\n'));
 };
 function receive(m){

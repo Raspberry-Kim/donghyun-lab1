@@ -21,6 +21,8 @@ FlyWire 공식 인용표는 Dorkenwald·Schlegel 연구를 함께 인용하고, 
 - **시각계 주석:** Matsliah 등 (2024), “Neuronal parts list and wiring diagram for a visual system.” https://doi.org/10.1038/s41586-024-07981-1
 - **미각 주석:** Tastekin 등 (2026), “The complete gustatory connectome of adult Drosophila reveals how taste guides feeding, foraging, and social behavior.” https://doi.org/10.1016/j.cell.2026.08.016
 - **주석의 비교·개정:** Berg 등 (2026), “Sexual dimorphism in the complete Drosophila male central nervous system connectome.” https://doi.org/10.1016/j.cell.2026.08.015
+- **예제 15·18번의 행동 참고:** Gibson 등 (2015), “Behavioral responses to a repetitive visual threat stimulus express a persistent state of defensive arousal in Drosophila.” https://doi.org/10.1016/j.cub.2015.03.058
+- **DNa02 방향 전환 참고:** Rayshubskiy 등 (2025), “Neural circuit mechanisms for steering control in walking Drosophila.” https://doi.org/10.7554/eLife.102230
 - **계산 모델:** Shiu 등 (2024), “A Drosophila computational brain model reveals sensorimotor processing.” https://www.nature.com/articles/s41586-024-07763-9
 
 주석 v3.2.0은 Berg, Schlegel, Tastekin, Matsliah, Dorkenwald의 다섯 연구를 인용하도록 안내한다. 동현초는 뉴런 일부만 쓰지만, 어떤 버전의 주석에서 왔는지 분명히 하려고 다섯 연구를 모두 적었다. [주석 저장소의 인용 안내](https://github.com/flyconnectome/flywire_annotations)
