@@ -1,3 +1,4 @@
+let slow=false;
 /* Only the Donghyun VM's numeric output stream can mutate experiment state.
    Host messages: load data, run source, execute an emergency DH halt. */
 let D,world,brain,vm,runId=0,running=false,pending=0,steps=0,elapsed=0,queue=[],packet=[],token='',history=[],logs=[],samples=[],wallStart=0;
@@ -105,7 +106,7 @@ function tick(){
 }
 function snapshot(type='frame',extra={}){
   const {rng,...state}=world;
-  postMessage({type,state,logs:logs.slice(-12),samples:samples.slice(-100),steps,line:vm?.currentLine||1,...extra});
+  postMessage({type,state,logs:logs.slice(-12),samples:samples.slice(-100),steps,line:vm?.currentLine||1,phys:vm&&!vm.done?(vm.stmts?.[vm.pc]?.phys||0):0,slow,...extra});
 }
 function fail(e){running=false;log(`오류: ${e.message}`);snapshot('error',{error:e.message,line:e.line||vm?.currentLine});}
 function loop(id){
@@ -115,7 +116,7 @@ function loop(id){
     if(pending){tick();pending-=20;}
     else{
       let budget=0;
-      while(running&&!pending&&!vm.done&&budget++<500){
+      while(running&&!pending&&!vm.done&&budget++<(slow?1:500)){
         vm.step(1);steps++;assert(steps<=1000000,'100만 문장 한도에 도달했다. 반복 조건을 확인하라.');
       }
       if(vm.done){
@@ -127,8 +128,8 @@ function loop(id){
         }
       }
     }
-    if(world.time%100===0||!running)snapshot(running?'frame':'done',running?{}:{allSamples:samples,wallMs:performance.now()-wallStart});
-    if(running)setTimeout(()=>loop(id),pending?Math.max(0,20-(performance.now()-start)):0);
+    if(slow||world.time%100===0||!running)snapshot(running?'frame':'done',running?{}:{allSamples:samples,wallMs:performance.now()-wallStart});
+    if(running)setTimeout(()=>loop(id),pending?Math.max(0,20-(performance.now()-start)):(slow?260:0));
   }catch(e){fail(e);}
 }
 onmessage=({data:m})=>{
@@ -143,7 +144,7 @@ onmessage=({data:m})=>{
       assert(typeof m.code==='string'&&m.code.length<=100000,'코드는 100,000자까지다.');
       const candidate=new Donghyun.VM(m.code,{write,readInt:()=>{assert(queue.length>0,'먼저 명령 8로 관측값을 요청하고 꽥꽥으로 읽어라.');return queue.shift();}});
       // Each run is a fresh experiment session; no automatic simulation before code advances time.
-      runId++;reset(1);logs=[];steps=0;elapsed=0;pending=0;packet=[];token='';vm=candidate;
+      runId++;reset(1);logs=[];steps=0;elapsed=0;pending=0;packet=[];token='';vm=candidate;slow=!!m.slow;
       running=true;wallStart=performance.now();log('동현랭 프로그램 시작');snapshot();loop(runId);
     }
   }catch(e){fail(e);}
