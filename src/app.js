@@ -7,7 +7,20 @@ const fallback={time:0,x:440,y:200,angle:0,foods:[],obstacles:[],zones:[],trace:
 $('#theme').setAttribute('aria-pressed',String(document.documentElement.dataset.theme==='dark'));
 $('#theme').onclick=()=>{const dark=document.documentElement.dataset.theme!=='dark';document.documentElement.dataset.theme=dark?'dark':'light';$('#theme').setAttribute('aria-pressed',String(dark));drawArena(performance.now());drawChart();};
 for(const ex of examples){const o=document.createElement('option');o.value=ex.id;o.textContent=ex.title;$('#example').append(o);}
-function codeChanged(){const count=$('#code').value.split('\n').length;$('#line-count').textContent=`${count}줄` ;$('#lines').textContent=Array.from({length:count},(_,i)=>i+1).join('\n');}
+// 동현랭 편집기와 같은 문법 색 표시
+const DH_TOKEN=/(ㅋㅋ.*$)|(나는 동현이냐\?|동현이구나)|(오겡끼데스까)|(신중동역|신중동|뭉치)|(뿡뿡뿡|뿡뿡|포동이)|(꽥꽥)|(동+현아)|(동+현)|(도오*옹)|(ㅠ+)|(뚱띠|또치)/g;
+const DH_CLS=[null,'t-cmt','t-frame','t-halt','t-ctl','t-out','t-in','t-assign','t-var','t-num','t-minus','t-op'];
+const dhEsc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function dhLine(line){let html='',last=0;line.replace(DH_TOKEN,(m,...g)=>{const idx=g[g.length-2];html+=dhEsc(line.slice(last,idx));const k=g.slice(0,11).findIndex(x=>x!==undefined)+1;html+=`<span class="${DH_CLS[k]}">${dhEsc(m)}</span>`;last=idx+m.length;return m;});return html+dhEsc(line.slice(last));}
+const dhCode=document.getElementById('code');
+const dhArea=document.createElement('div');dhArea.className='code-area';
+const dhHl=document.createElement('div');dhHl.id='hl';dhHl.setAttribute('aria-hidden','true');
+dhCode.parentNode.insertBefore(dhArea,dhCode);dhArea.append(dhHl,dhCode);
+function dhSync(){dhHl.scrollTop=dhCode.scrollTop;dhHl.scrollLeft=dhCode.scrollLeft;}
+function dhMetrics(){const cs=getComputedStyle(dhCode);for(const p of ['paddingTop','paddingRight','paddingBottom','paddingLeft','fontFamily','fontSize','lineHeight','tabSize','letterSpacing'])dhHl.style[p]=cs[p];}
+function dhHighlight(){dhMetrics();dhHl.innerHTML=dhCode.value.split('\n').map(l=>`<span class="ln">${dhLine(l)||' '}</span>`).join('')+'<span class="ln"> </span>';dhSync();}
+dhCode.addEventListener('scroll',dhSync);addEventListener('resize',dhHighlight);
+function codeChanged(){const count=$('#code').value.split('\n').length;$('#line-count').textContent=`${count}줄` ;$('#lines').textContent=Array.from({length:count},(_,i)=>i+1).join('\n');dhHighlight();}
 function selectExample(){
   const ex=examples.find(x=>x.id===$('#example').value);
   $('#code').value=ex.code;$('#example-note').textContent=ex.note;codeChanged();
@@ -72,7 +85,7 @@ $('#open').onchange=async e=>{
 $('#csv').onclick=()=>{
   const rows=allSamples.length?allSamples:samples,keys=['ms','MN9_L','MN9_R','DNa02_L','DNa02_R','GF_L','GF_R','DA','x','y','active','distance','velocity','dopamineStim','sugarStim','bitterStim','collision'];
   const quote=x=>'"'+String(x).replaceAll('"','""')+'"';
-  const meta=[['# model','동현초 0.9 / FlyWire v783 / 1758 neurons / 121135 edges'],['# data','FlyWire Consortium / reduced, reindexed; not endorsed by FlyWire. Noncommercial use following FlyWire guidelines (CC BY-NC 4.0); Zenodo 10676866 metadata lists CC BY 4.0. See credits for discrepancy.'],['# credits','https://flywire.ai/guidelines'],['# seed',state?.seed],['# code',lastSource]];
+  const meta=[['# model','동현초 1.1 / FlyWire v783 / 1758 neurons / 121135 edges'],['# data','FlyWire Consortium / reduced, reindexed; not endorsed by FlyWire. Noncommercial use following FlyWire guidelines (CC BY-NC 4.0); Zenodo 10676866 metadata lists CC BY 4.0. See credits for discrepancy.'],['# credits','https://flywire.ai/guidelines'],['# seed',state?.seed],['# code',lastSource]];
   download('초파리-관측.csv','text/csv;charset=utf-8','\ufeff'+meta.map(r=>r.map(quote).join(',')).join('\n')+'\n'+keys.join(',')+'\n'+rows.map(r=>keys.map(k=>Number(r[k]).toFixed(k==='ms'?0:3)).join(',')).join('\n'));
 };
 function receive(m){
