@@ -134,6 +134,7 @@ function loop(id){
 }
 onmessage=({data:m})=>{
   try{
+    if(m.type==='speed'){slow=!!m.slow;return;}
     if(m.type==='init'){D=m.data;reset(1);snapshot('ready');return;}
     if(m.type==='halt'){
       // A fixed, visible Donghyun program is interpreted, rather than a direct movement control.

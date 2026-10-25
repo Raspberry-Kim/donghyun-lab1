@@ -18,7 +18,8 @@ const dhHl=document.createElement('div');dhHl.id='hl';dhHl.setAttribute('aria-hi
 dhCode.parentNode.insertBefore(dhArea,dhCode);dhArea.append(dhHl,dhCode);
 function dhSync(){dhHl.scrollTop=dhCode.scrollTop;dhHl.scrollLeft=dhCode.scrollLeft;}
 function dhMetrics(){const cs=getComputedStyle(dhCode);for(const p of ['paddingTop','paddingRight','paddingBottom','paddingLeft','fontFamily','fontSize','lineHeight','tabSize','letterSpacing'])dhHl.style[p]=cs[p];}
-let dhCur=0;
+let dhCur=0,dhSlowOn=false;
+function dhSlowUI(v){dhSlowOn=v;const b=document.getElementById('slow');if(b)b.setAttribute('aria-pressed',String(v));}
 function dhMark(n){if(n===dhCur)return;dhCur=n;dhHl.querySelectorAll('.ln.cur').forEach(e=>e.classList.remove('cur'));if(n>0)dhHl.children[n-1]?.classList.add('cur');}
 function dhHighlight(){dhCur=0;dhMetrics();dhHl.innerHTML=dhCode.value.split('\n').map(l=>`<span class="ln">${dhLine(l)||' '}</span>`).join('')+'<span class="ln"> </span>';dhSync();}
 dhCode.addEventListener('scroll',dhSync);addEventListener('resize',dhHighlight);
@@ -59,17 +60,17 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',
 window.addEventListener('hashchange',()=>openReferenceTarget(location.hash));
 if(location.hash)openReferenceTarget(location.hash);
 $('.brand').onclick=e=>{e.preventDefault();document.querySelector('[data-tab="lab"]').click();window.scrollTo(0,0);};
-function setBusy(b){busy=b;$('#run').disabled=!ready||b;$('#start').disabled=!ready||b;$('#slow').disabled=!ready||b;$('#halt').disabled=!b;}
-function run(e){const slowRun=e===true;
+function setBusy(b){busy=b;$('#run').disabled=!ready||b;$('#start').disabled=!ready||b;$('#slow').disabled=!ready;$('#halt').disabled=!b;}
+function run(e){const slowRun=e===true;if(!ready||busy)return;dhSlowUI(slowRun);
   if(!ready||busy)return;
   const code=$('#code').value;
-  if(code.length>100000){$('#result').textContent='코드는 100,000자까지다.';$('#result').className='result error';return;}
+  if(code.length>100000){$('#result').textContent='코드는 100,000자까지다.';$('#result').className='result error';dhSlowUI(false);return;}
   lastSource=code;allSamples=[];samples=[];$('#csv').disabled=true;
   $('#welcome').hidden=true;$('#result').className='result';$('#result').textContent=(slowRun?'동현랭 코드를 한 줄씩 천천히 실행 중. ':'동현랭 코드 실행 중. ')+'편집 내용은 다음 실행에 적용된다.';
   $('#status').textContent='실험 중';$('#status').className='status running';
   setBusy(true);worker.postMessage({type:'run',code,slow:slowRun});clearTimeout(faultTimer);
 }
-$('#run').onclick=run;$('#start').onclick=run;$('#slow').onclick=()=>run(true);
+$('#run').onclick=run;$('#start').onclick=run;$('#slow').onclick=()=>{if(busy){dhSlowUI(!dhSlowOn);worker.postMessage({type:'speed',slow:dhSlowOn});if(!dhSlowOn)dhMark(0);}else run(true);};
 $('#halt').onclick=()=>{
   if(!busy)return;worker.postMessage({type:'halt'});
   // Infrastructure watchdog is not an alternative experiment control.
@@ -127,7 +128,7 @@ async function init(){
     }
     if(data.n!==1758||data.post.length!==121135)throw new Error('회로 데이터 검증 실패');
     blobURL=URL.createObjectURL(new Blob([text],{type:'text/javascript'}));worker=new Worker(blobURL);
-    worker.onmessage=e=>{dhMark(e.data.slow&&e.data.type==='frame'?e.data.phys:0);receive(e.data);};
+    worker.onmessage=e=>{if(['done','error','halted'].includes(e.data.type))dhSlowUI(false);dhMark(e.data.slow&&e.data.type==='frame'?e.data.phys:0);receive(e.data);};
     worker.onerror=e=>{ready=false;setBusy(false);$('#status').textContent='실행기 오류';$('#result').textContent='계산 스레드를 시작하지 못했다. 페이지를 새로고침하라.';$('#result').className='result error';};
     worker.postMessage({type:'init',data});
   }catch(e){$('#status').textContent='불러오기 실패';$('#status').className='status error';$('#result').textContent=e.message+' 새로고침하여 다시 시도하라.';$('#result').className='result error';}
