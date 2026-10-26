@@ -142,10 +142,11 @@ onmessage=({data:m})=>{
       if(h.halted){running=false;runId++;pending=0;packet=[];token='';log('오겡끼데스까 · 긴급 중단 코드 실행');snapshot('halted',{allSamples:samples});}return;
     }
     if(m.type==='run'){
+      runId++;running=false;reset(1);logs=[];steps=0;elapsed=0;pending=0;packet=[];token='';vm=null;slow=!!m.slow;
       assert(typeof m.code==='string'&&m.code.length<=100000,'코드는 100,000자까지다.');
       const candidate=new Donghyun.VM(m.code,{write,readInt:()=>{assert(queue.length>0,'먼저 명령 8로 관측값을 요청하고 꽥꽥으로 읽어라.');return queue.shift();}});
       // Each run is a fresh experiment session; no automatic simulation before code advances time.
-      runId++;reset(1);logs=[];steps=0;elapsed=0;pending=0;packet=[];token='';vm=candidate;slow=!!m.slow;
+      vm=candidate;
       running=true;wallStart=performance.now();log('동현랭 프로그램 시작');snapshot();loop(runId);
     }
   }catch(e){fail(e);}

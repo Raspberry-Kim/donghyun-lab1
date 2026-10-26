@@ -20,10 +20,19 @@ function dhSync(){dhHl.scrollTop=dhCode.scrollTop;dhHl.scrollLeft=dhCode.scrollL
 function dhMetrics(){const cs=getComputedStyle(dhCode);for(const p of ['paddingTop','paddingRight','paddingBottom','paddingLeft','fontFamily','fontSize','lineHeight','tabSize','letterSpacing'])dhHl.style[p]=cs[p];}
 let dhCur=0,dhSlowOn=false;
 function dhSlowUI(v){dhSlowOn=v;const b=document.getElementById('slow');if(b)b.setAttribute('aria-pressed',String(v));}
+function dhRunningNotice(){$('#result').textContent=(dhSlowOn?'동현랭 코드를 한 줄씩 천천히 실행 중. ':'동현랭 코드 실행 중. ')+'편집 내용은 다음 실행에 적용된다.';}
 function dhMark(n){if(n===dhCur)return;dhCur=n;dhHl.querySelectorAll('.ln.cur').forEach(e=>e.classList.remove('cur'));if(n>0)dhHl.children[n-1]?.classList.add('cur');}
 function dhHighlight(){dhCur=0;dhMetrics();dhHl.innerHTML=dhCode.value.split('\n').map(l=>`<span class="ln">${dhLine(l)||' '}</span>`).join('')+'<span class="ln"> </span>';dhSync();}
 dhCode.addEventListener('scroll',dhSync);addEventListener('resize',dhHighlight);
-function codeChanged(){const count=$('#code').value.split('\n').length;$('#line-count').textContent=`${count}줄` ;$('#lines').textContent=Array.from({length:count},(_,i)=>i+1).join('\n');dhHighlight();}
+function dhIndentComments(){
+  const text=dhCode.value,starts=[...text.matchAll(/^ㅋㅋ/gm)].map(m=>m.index);if(!starts.length)return;
+  const {selectionStart:a,selectionEnd:b,selectionDirection:direction,scrollTop:y,scrollLeft:x}=dhCode;
+  dhCode.value=text.replace(/^ㅋㅋ/gm,'  ㅋㅋ');
+  const shifted=p=>p+2*starts.filter(i=>i<=p).length;
+  dhCode.setSelectionRange(shifted(a),shifted(b),direction);dhCode.scrollTop=y;dhCode.scrollLeft=x;
+}
+dhCode.addEventListener('compositionend',()=>codeChanged());
+function codeChanged(e){if(!e?.isComposing)dhIndentComments();const count=$('#code').value.split('\n').length;$('#line-count').textContent=`${count}줄` ;$('#lines').textContent=Array.from({length:count},(_,i)=>i+1).join('\n');dhHighlight();}
 function selectExample(){
   const ex=examples.find(x=>x.id===$('#example').value);
   $('#code').value=ex.code;$('#example-note').textContent=ex.note;codeChanged();
@@ -70,7 +79,7 @@ function run(e){const slowRun=e===true;if(!ready||busy)return;dhSlowUI(slowRun);
   $('#status').textContent='실험 중';$('#status').className='status running';
   setBusy(true);worker.postMessage({type:'run',code,slow:slowRun});clearTimeout(faultTimer);
 }
-$('#run').onclick=run;$('#start').onclick=run;$('#slow').onclick=()=>{if(busy){dhSlowUI(!dhSlowOn);worker.postMessage({type:'speed',slow:dhSlowOn});if(!dhSlowOn)dhMark(0);}else run(true);};
+$('#run').onclick=run;$('#start').onclick=run;$('#slow').onclick=()=>{if(busy){dhSlowUI(!dhSlowOn);dhRunningNotice();worker.postMessage({type:'speed',slow:dhSlowOn});if(!dhSlowOn)dhMark(0);}else run(true);};
 $('#halt').onclick=()=>{
   if(!busy)return;worker.postMessage({type:'halt'});
   // Infrastructure watchdog is not an alternative experiment control.
@@ -88,7 +97,7 @@ $('#open').onchange=async e=>{
 $('#csv').onclick=()=>{
   const rows=allSamples.length?allSamples:samples,keys=['ms','MN9_L','MN9_R','DNa02_L','DNa02_R','GF_L','GF_R','DA','x','y','active','distance','velocity','dopamineStim','sugarStim','bitterStim','collision'];
   const quote=x=>'"'+String(x).replaceAll('"','""')+'"';
-  const meta=[['# model','동현초 1.18 / FlyWire v783 / 1758 neurons / 121135 edges'],['# data','FlyWire Consortium / reduced, reindexed; not endorsed by FlyWire. Noncommercial use following FlyWire guidelines (CC BY-NC 4.0); Zenodo 10676866 metadata lists CC BY 4.0. See credits for discrepancy.'],['# credits','https://flywire.ai/guidelines'],['# seed',state?.seed],['# code',lastSource]];
+  const meta=[['# model','동현초 1.19 / FlyWire v783 / 1758 neurons / 121135 edges'],['# data','FlyWire Consortium / reduced, reindexed; not endorsed by FlyWire. Noncommercial use following FlyWire guidelines (CC BY-NC 4.0); Zenodo 10676866 metadata lists CC BY 4.0. See credits for discrepancy.'],['# credits','https://flywire.ai/guidelines'],['# seed',state?.seed],['# code',lastSource]];
   download('초파리-관측.csv','text/csv;charset=utf-8','\ufeff'+meta.map(r=>r.map(quote).join(',')).join('\n')+'\n'+keys.join(',')+'\n'+rows.map(r=>keys.map(k=>Number(r[k]).toFixed(k==='ms'?0:3)).join(',')).join('\n'));
 };
 function receive(m){
