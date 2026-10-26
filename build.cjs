@@ -34,6 +34,8 @@ fs.writeFileSync(path.join(root,'index.html'),html);
 const vm=require('vm'),ec=vm.createContext({});
 vm.runInContext(src('examples.js').replaceAll('export ','')+';globalThis.EX=examples;',ec);
 fs.mkdirSync(path.join(root,'examples'),{recursive:true});
-ec.EX.forEach((ex,i)=>fs.writeFileSync(path.join(root,'examples',String(i+1).padStart(2,'0')+'-'+ex.id+'.dh'),ex.code+'\n'));
+// 내려받는 .dh 예제도 편집기와 같은 규칙으로 들여쓴다: 시작·끝 줄은 맨 앞, 명령은 2칸, 따로 줄에 있는 주석은 3칸
+const dhIndent=t=>t.split('\n').map(l=>{const b=l.replace(/^[ \t]+/,'');if(!b)return '';if(b.startsWith('ㅋㅋ'))return '   '+b;const s=b.split('~')[0].replace(/ㅋㅋ.*$/,'').trim();return (s==='나는 동현이냐?'||s==='동현이구나'?'':'  ')+b;}).join('\n');
+ec.EX.forEach((ex,i)=>fs.writeFileSync(path.join(root,'examples',String(i+1).padStart(2,'0')+'-'+ex.id+'.dh'),dhIndent(ex.code)+'\n'));
 console.log('Single HTML:',single,fs.statSync(single).size);
 console.log({out,brain,data,app,css});
