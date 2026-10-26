@@ -78,6 +78,7 @@ window.addEventListener('hashchange',()=>openReferenceTarget(location.hash));
 if(location.hash)openReferenceTarget(location.hash);
 $('.brand').onclick=e=>{e.preventDefault();document.querySelector('[data-tab="lab"]').click();window.scrollTo(0,0);};
 function setBusy(b){busy=b;$('#run').disabled=!ready||b;$('#start').disabled=!ready||b;$('#slow').disabled=!ready;$('#halt').disabled=!b;}
+let prevRunCode=null;
 function run(e){const slowRun=e===true;if(!ready||busy)return;dhSlowUI(slowRun);
   if(!ready||busy)return;
   const code=$('#code').value;
@@ -85,7 +86,8 @@ function run(e){const slowRun=e===true;if(!ready||busy)return;dhSlowUI(slowRun);
   lastSource=code;allSamples=[];samples=[];$('#csv').disabled=true;
   $('#welcome').hidden=true;$('#result').className='result';$('#result').textContent=(slowRun?'동현랭 코드를 한 줄씩 천천히 실행 중. ':'동현랭 코드 실행 중. ')+'편집 내용은 다음 실행에 적용된다.';
   $('#status').textContent='실험 중';$('#status').className='status running';
-  setBusy(true);worker.postMessage({type:'run',code,slow:slowRun});clearTimeout(faultTimer);
+  const repeat=code===prevRunCode;prevRunCode=code;
+  setBusy(true);worker.postMessage({type:'run',code,slow:slowRun,repeat});clearTimeout(faultTimer);
 }
 $('#run').onclick=run;$('#start').onclick=run;$('#slow').onclick=()=>{if(busy){dhSlowUI(!dhSlowOn);dhRunningNotice();worker.postMessage({type:'speed',slow:dhSlowOn});if(!dhSlowOn)dhMark(0);}else run(true);};
 $('#halt').onclick=()=>{
@@ -105,7 +107,7 @@ $('#open').onchange=async e=>{
 $('#csv').onclick=()=>{
   const rows=allSamples.length?allSamples:samples,keys=['ms','MN9_L','MN9_R','DNa02_L','DNa02_R','GF_L','GF_R','DA','x','y','active','distance','velocity','dopamineStim','sugarStim','bitterStim','collision'];
   const quote=x=>'"'+String(x).replaceAll('"','""')+'"';
-  const meta=[['# model','동현초 1.19 / FlyWire v783 / 1758 neurons / 121135 edges'],['# data','FlyWire Consortium / reduced, reindexed; not endorsed by FlyWire. Noncommercial use following FlyWire guidelines (CC BY-NC 4.0); Zenodo 10676866 metadata lists CC BY 4.0. See credits for discrepancy.'],['# credits','https://flywire.ai/guidelines'],['# seed',state?.seed],['# code',lastSource]];
+  const meta=[['# model','동현초 1.21 / FlyWire v783 / 1758 neurons / 121135 edges'],['# data','FlyWire Consortium / reduced, reindexed; not endorsed by FlyWire. Noncommercial use following FlyWire guidelines (CC BY-NC 4.0); Zenodo 10676866 metadata lists CC BY 4.0. See credits for discrepancy.'],['# credits','https://flywire.ai/guidelines'],['# seed',state?.seed],['# code',lastSource]];
   download('초파리-관측.csv','text/csv;charset=utf-8','\ufeff'+meta.map(r=>r.map(quote).join(',')).join('\n')+'\n'+keys.join(',')+'\n'+rows.map(r=>keys.map(k=>Number(r[k]).toFixed(k==='ms'?0:3)).join(',')).join('\n'));
 };
 function receive(m){

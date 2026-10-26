@@ -13,9 +13,14 @@ function reset(seed){
   world.rng=FlyBrain.random(seed+12345);history=[];samples=[];queue=[];
 }
 function log(text){logs.push({time:world?.time||0,text});if(logs.length>150)logs.shift();}
+/* Seed: the first run uses the seed written in code. Running the same code again shifts every seed by one random offset,
+   so a repeat run draws new luck while seeds that are equal inside one program stay equal. */
+let seedOffset=0,seedsUsed=[];
+function pickSeedOffset(){const u=new Uint32Array(1);if(typeof crypto!=='undefined'&&crypto.getRandomValues)crypto.getRandomValues(u);else u[0]=Math.floor(Math.random()*4294967296);return 1+u[0]%2147483646;}
+function runSeed(s){return seedOffset?(s-1+seedOffset)%2147483647+1:s;}
 function command(p){
   const [op,...a]=p;
-  if(op===1){bounded(a[0],1,2147483647,'난수 시드');reset(a[0]);}
+  if(op===1){bounded(a[0],1,2147483647,'난수 시드');const s=runSeed(a[0]);reset(s);seedsUsed.push(s);if(seedOffset)log(`다시 실행 · 새 시드 ${s} (코드의 시드 ${a[0]} 대신)`);}
   if(op===2){
     bounded(a[0],12,628,'x');bounded(a[1],12,388,'y');bounded(a[2],0,359,'방향');
     assert(!world.obstacles.some(o=>Math.hypot(a[0]-o.x,a[1]-o.y)<o.r+10),'시작 위치가 장애물과 겹친다.');
@@ -142,12 +147,12 @@ onmessage=({data:m})=>{
       if(h.halted){running=false;runId++;pending=0;packet=[];token='';log('오겡끼데스까 · 긴급 중단 코드 실행');snapshot('halted',{allSamples:samples});}return;
     }
     if(m.type==='run'){
-      runId++;running=false;reset(1);logs=[];steps=0;elapsed=0;pending=0;packet=[];token='';vm=null;slow=!!m.slow;
+      runId++;running=false;seedOffset=m.repeat?pickSeedOffset():0;seedsUsed=[];reset(runSeed(1));logs=[];steps=0;elapsed=0;pending=0;packet=[];token='';vm=null;slow=!!m.slow;
       assert(typeof m.code==='string'&&m.code.length<=100000,'코드는 100,000자까지다.');
       const candidate=new Donghyun.VM(m.code,{write,readInt:()=>{assert(queue.length>0,'먼저 명령 8로 관측값을 요청하고 꽥꽥으로 읽어라.');return queue.shift();}});
       // Each run is a fresh experiment session; no automatic simulation before code advances time.
       vm=candidate;
-      running=true;wallStart=performance.now();log('동현랭 프로그램 시작');snapshot();loop(runId);
+      running=true;wallStart=performance.now();log(seedOffset?'동현랭 프로그램 시작 · 같은 코드를 다시 실행해 새 시드를 쓴다':'동현랭 프로그램 시작');snapshot();loop(runId);
     }
   }catch(e){fail(e);}
 };

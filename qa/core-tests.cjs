@@ -14,6 +14,15 @@ check('Failed new run cannot reuse earlier observations; next valid run is uncha
   c.onmessage({data:{type:'run',code:exContext.EX[0].code}});drain();
   assert.deepStrictEqual(messages.at(-1).state,first.state);assert.deepStrictEqual(messages.at(-1).allSamples,first.allSamples);
 });
+check('Same code run again draws a new random seed; first run keeps the written seed',()=>{
+  const queue=[],messages=[],c=vm.createContext({console,performance,setTimeout:fn=>queue.push(fn),postMessage:m=>messages.push(structuredClone(m))});c.self=c;vm.runInContext(source,c);
+  const drain=()=>{let n=0;while(queue.length){queue.shift()();assert(++n<100000);}};
+  c.onmessage({data:{type:'init',data:D}});const code=exContext.EX[0].code;
+  c.onmessage({data:{type:'run',code}});drain();const first=messages.at(-1);assert.equal(first.state.seed,7);
+  c.onmessage({data:{type:'run',code,repeat:true}});drain();const again=messages.at(-1);assert.notEqual(again.state.seed,7);assert(again.state.seed>=1&&again.state.seed<=2147483647);
+  c.onmessage({data:{type:'run',code,repeat:true}});drain();assert.notEqual(messages.at(-1).state.seed,again.state.seed);
+  c.onmessage({data:{type:'run',code}});drain();assert.deepStrictEqual(messages.at(-1).state,first.state);
+});
 check('CSR indices and counts',()=>{assert.equal(D.indptr.length,D.n+1);assert.equal(D.indptr.at(-1),D.post.length);assert.equal(D.cnt.length,D.post.length);for(let i=0;i<D.n;i++)assert(D.indptr[i]<=D.indptr[i+1]);for(const p of D.post)assert(p>=0&&p<D.n);for(const n of D.cnt)assert(Number.isInteger(n));});
 check('No stimulus no spikes',()=>assert(new Brain(D,7).advance(1000).every(x=>x===0)));
 check('Chunked state exactly equals uninterrupted model',()=>{const a=new Brain(D,7),b=new Brain(D,7);a.advance(1000,{1:100});for(let i=0;i<50;i++)b.advance(20,{1:100});assert.deepEqual(a.total,b.total);assert.deepEqual(a.v,b.v);});

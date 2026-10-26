@@ -10,7 +10,7 @@ const out=n=>'뿡뿡 '+(typeof n==='string'?n:number(n))+'~뿡뿡뿡';
 const cmd=(op,...args)=>[op,...args].map(out).join('~');
 const block=(label,op,...args)=>'ㅋㅋ '+label+'\n'+cmd(op,...args);
 const wrap=lines=>['나는 동현이냐?',...lines,'동현이구나'].join('\n');
-const reset=block('같은 시드 7이면 같은 산책을 재현한다',1,7);
+const reset=block('처음은 시드 7, 다시 실행하면 새 시드로 초기화한다',1,7);
 const start=(x=70,y=200,speed=45)=>[reset,block('왼쪽에서 오른쪽을 향해 출발',2,x,y,0),block('기본 걷기 속도',9,speed)];
 // v0.5: 더 거칠게 움직이는 예제 10개. 도우미 이름이 화면 코드와 겹치지 않도록 이 묶음 안에 둔다.
 const wildExamples=(()=>{
@@ -30,7 +30,7 @@ const wildExamples=(()=>{
     return lines.map(l=>l.replace(/@(\w+)/g,(_,k)=>{if(!labels[k])throw Error('없는 표시 '+k);return number(labels[k]);})).join('\n');
   }
   const L=label=>({label});
-  const resetW=(seed=7)=>block('같은 시드 '+seed+'이면 같은 소동을 재현한다',1,seed);
+  const resetW=(seed=7)=>block('처음은 시드 '+seed+', 다시 실행하면 새 시드로 초기화한다',1,seed);
   const begin=(x,y,a,speed,seed=7)=>[resetW(seed),block('출발 위치와 방향',2,x,y,a),block('기본 걷기 속도 '+speed,9,speed)];
   // countdown guard: v = n; at loop head decrement and exit when zero
   const W=[];
