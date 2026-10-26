@@ -1,4 +1,4 @@
-// These are ordinary Donghyun v1.52 programs. Only their output controls the experiment.
+// These are ordinary Donghyun v1.53 programs. Only their output controls the experiment.
 export function number(n){
   if(n===0)return '도옹ㅠ';
   if(n<0)return 'ㅠ '+number(-n);
