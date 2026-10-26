@@ -3,6 +3,17 @@ const {Brain}=require('../src/brain.js'),D=require('../data/connectome.json');
 const source=['donghyun.js','brain.js','worker.js'].map(n=>fs.readFileSync(__dirname+'/../src/'+n,'utf8')).join('\n');
 const exContext=vm.createContext({});vm.runInContext(fs.readFileSync(__dirname+'/../src/examples.js','utf8').replaceAll('export ','')+';globalThis.EX=examples;',exContext);
 let tests=0;const check=(name,fn)=>{fn();tests++;console.log('PASS',name);};
+check('Failed new run cannot reuse earlier observations; next valid run is unchanged',()=>{
+  const queue=[],messages=[],c=vm.createContext({console,performance,setTimeout:fn=>queue.push(fn),postMessage:m=>messages.push(structuredClone(m))});c.self=c;vm.runInContext(source,c);
+  const drain=()=>{let n=0;while(queue.length){queue.shift()();assert(++n<100000);}};
+  c.onmessage({data:{type:'init',data:D}});
+  c.onmessage({data:{type:'run',code:exContext.EX[0].code}});drain();const first=messages.at(-1);
+  assert(first.allSamples.length>0);
+  c.onmessage({data:{type:'run',code:'잘못된 시작'}});drain();const failed=messages.at(-1);
+  assert.equal(failed.type,'error');assert.equal(failed.samples.length,0);assert.equal((failed.allSamples||[]).length,0);assert.equal(failed.steps,0);
+  c.onmessage({data:{type:'run',code:exContext.EX[0].code}});drain();
+  assert.deepStrictEqual(messages.at(-1).state,first.state);assert.deepStrictEqual(messages.at(-1).allSamples,first.allSamples);
+});
 check('CSR indices and counts',()=>{assert.equal(D.indptr.length,D.n+1);assert.equal(D.indptr.at(-1),D.post.length);assert.equal(D.cnt.length,D.post.length);for(let i=0;i<D.n;i++)assert(D.indptr[i]<=D.indptr[i+1]);for(const p of D.post)assert(p>=0&&p<D.n);for(const n of D.cnt)assert(Number.isInteger(n));});
 check('No stimulus no spikes',()=>assert(new Brain(D,7).advance(1000).every(x=>x===0)));
 check('Chunked state exactly equals uninterrupted model',()=>{const a=new Brain(D,7),b=new Brain(D,7);a.advance(1000,{1:100});for(let i=0;i<50;i++)b.advance(20,{1:100});assert.deepEqual(a.total,b.total);assert.deepEqual(a.v,b.v);});
