@@ -34,8 +34,8 @@ const wildExamples=(()=>{
   const begin=(x,y,a,speed,seed=7)=>[resetW(seed),block('출발 위치와 방향',2,x,y,a),block('기본 걷기 속도 '+speed,9,speed)];
   // countdown guard: v = n; at loop head decrement and exit when zero
   const W=[];
-  W.push({id:'gfRush',title:'거리 주사위로 폭주하기',
-   note:'거대섬유(DNp01)를 100 Hz로 계속 자극해 1.6배 빠르기로 달리게 한다. 0.5초마다 동현랭이 지금까지 걸어온 거리를 읽고, 그 값이 짝수면 왼쪽 DNa02, 홀수면 오른쪽 DNa02를 150 Hz로 자극한다. 걸음의 작은 흔들림이 거리를 바꾸므로 주사위처럼 쓸 수 있다. 15초 동안 방 안을 어지럽게 휘젓는다.',
+  W.push({id:'gfRush',title:'거리 동전 던지기로 폭주하기',
+   note:'거대섬유(DNp01)를 100 Hz로 계속 자극해 1.6배 빠르기로 달리게 한다. 0.5초마다 동현랭이 지금까지 걸어온 거리를 읽고, 그 값이 짝수면 왼쪽 DNa02, 홀수면 오른쪽 DNa02를 150 Hz로 자극한다. 걸음의 작은 흔들림이 거리를 바꾸므로 동전 던지기처럼 쓸 수 있다. 15초 동안 방 안을 어지럽게 휘젓는다.',
    code:asm([...begin(80,200,0,70,3),block('거대섬유 양쪽 100 Hz',5,8,100),set(1,lit(30),'0.5초씩 30번 = 15초'),set(3,'','왼쪽 횟수'),set(4,'','오른쪽 횟수'),
     L('loop'),read(2,12,'누적 이동 거리 요청'),set(2,V(2)+' 또치 도오옹','2로 나눈 나머지'),
     ifZero(V(2),'left'),go('right'),
