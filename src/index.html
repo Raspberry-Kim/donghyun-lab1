@@ -15,7 +15,7 @@
 <a class="skip" href="#main">실험실로 건너뛰기</a>
 <header class="header">
   <a href="#" class="brand" aria-label="동현초 처음으로"><span class="wordmark">동현<span>초</span><sup>TM</sup></span><span class="brand-divider"></span><span>FLY LAB <small>코드로 즐기는 뇌 회로 탐험</small></span></a>
-  <div class="edition">v1.19<button id="theme" class="icon-btn" aria-label="밝은 화면과 어두운 화면 전환" title="화면 전환" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button></div>
+  <div class="edition">v1.21<button id="theme" class="icon-btn" aria-label="밝은 화면과 어두운 화면 전환" title="화면 전환" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button></div>
 </header>
 <main id="main">
 <!-- SERIES-NAV-START -->
@@ -67,10 +67,10 @@
         <section class="log-panel"><div class="section-bar"><h2><span class="index">D</span> 실험 기록</h2><span id="steps" class="muted">0문장</span></div><ol id="log" aria-label="실험 이벤트"><li><time>00.00</time><span>실행 대기. 아직 자극을 주지 않았다.</span></li></ol></section>
       </aside>
     </div>
-    <div class="workflow"><span>동현랭 코드</span><b>→</b><span>감각 입력</span><b>→</b><span>FlyWire 축소 회로</span><b>→</b><span>신경 출력</span><b>→</b><span>몸체 / 관측값</span><small>꽥꽥으로 읽고, 조건문으로 다시 개입한다.</small></div>
+    <div class="workflow"><span>동현랭 코드</span><b>→</b><span>감각 입력</span><b>→</b><span>FlyWire 축소 회로</span><b>→</b><span>신경 출력</span><b>→</b><span>몸체 / 관측값</span><small>• 꽥꽥으로 읽고, 조건문으로 다시 개입한다.</small></div>
   </section>
   <section id="tab-protocol" class="tab-panel document" hidden>
-    <div class="doc-heading"><div class="eyebrow">EXPERIMENT I/O · v1.19</div><h2>초파리의 하루를 코드로 바꿔 보자.</h2><p>처음에는 예제를 그대로 실행하면 된다. 다음에는 코드 속 숫자를 바꿔 먹이를 옮기거나, 걷는 속도와 자극 시간을 조절해 보자. <a href="https://raspberry-kim.github.io/donghyun-lang/" target="_blank" rel="noopener">동현랭 플레이그라운드</a>에서 기본 문법과 숫자 표현을 먼저 연습할 수 있다.</p><p><code>뿡뿡</code>은 정수를 출력하고, <code>뿡뿡뿡</code>은 줄을 나눈다. 이 실험실은 출력된 명령 번호와 인수를 순서대로 읽는다. 동현랭 v1.53의 문법을 그대로 사용하므로 일반 실행기에서는 같은 코드가 숫자를 출력할 뿐이다.</p></div>
+    <div class="doc-heading"><div class="eyebrow">EXPERIMENT I/O · v1.21</div><h2>초파리의 하루를 코드로 바꿔 보자.</h2><p>처음에는 예제를 그대로 실행하면 된다. 다음에는 코드 속 숫자를 바꿔 먹이를 옮기거나, 걷는 속도와 자극 시간을 조절해 보자. <a href="https://raspberry-kim.github.io/donghyun-lang/" target="_blank" rel="noopener">동현랭 플레이그라운드</a>에서 기본 문법과 숫자 표현을 먼저 연습할 수 있다.</p><p><code>뿡뿡</code>은 정수를 출력하고, <code>뿡뿡뿡</code>은 줄을 나눈다. 이 실험실은 출력된 명령 번호와 인수를 순서대로 읽는다. 동현랭 v1.53의 문법을 그대로 사용하므로 일반 실행기에서는 같은 코드가 숫자를 출력할 뿐이다.</p></div>
     <div class="doc-columns"><div><h3>가장 작은 자극 실험</h3><pre class="code-example">나는 동현이냐?
 ㅋㅋ 명령 5: 뉴런 자극
 뿡뿡 도오오오오옹~뿡뿡뿡
@@ -82,7 +82,7 @@
 뿡뿡 도오오오오오오옹~뿡뿡뿡
 ㅋㅋ 1,000 ms = 10 × 10 × 10
 뿡뿡 도오오오오오오오오오옹 도오오오오오오오오오옹 도오오오오오오오오오옹~뿡뿡뿡
-동현이구나</pre></div><div><h3>조작 원칙</h3><ul><li>마우스·키보드로 초파리를 직접 이동시키는 기능은 없다.</li><li>예제는 코드를 채워 줄 뿐이다. 실행 버튼을 눌러야 효과가 생긴다.</li><li>매 실행은 새 실험이다. 명령 1로 시드를 지정하면 같은 코드가 같은 결과를 낸다.</li><li>시간은 명령 7에서만 흐른다. 그 외에는 코드 실행과 관측만 이루어진다.</li><li>중단 버튼은 <code>나는 동현이냐?~오겡끼데스까~동현이구나</code>를 별도로 실행한다. 환경 조작을 우회하지 않는다.</li><li>프로그램 종료·오류·중단은 실험 시간도 멈춘다. 중단 전 결과는 남는다.</li></ul></div></div>
+동현이구나</pre></div><div><h3>조작 원칙</h3><ul><li>마우스·키보드로 초파리를 직접 이동시키는 기능은 없다.</li><li>예제는 코드를 채워 줄 뿐이다. 실행 버튼을 눌러야 효과가 생긴다.</li><li>매 실행은 새 실험이다. 처음 실행은 명령 1의 시드를 쓰고, 같은 코드를 다시 실행하면 시드를 무작위로 바꾼다.</li><li>시간은 명령 7에서만 흐른다. 그 외에는 코드 실행과 관측만 이루어진다.</li><li>중단 버튼은 <code>나는 동현이냐?~오겡끼데스까~동현이구나</code>를 별도로 실행한다. 환경 조작을 우회하지 않는다.</li><li>프로그램 종료·오류·중단은 실험 시간도 멈춘다. 중단 전 결과는 남는다.</li></ul></div></div>
     <h3>실험 명령</h3><p>아래 숫자는 이해를 위한 설명이다. 코드에서는 <code>도…옹</code>, 변수, 곱셈 등 동현랭 식으로 표현하라. 각 숫자 뒤에는 줄바꿈을 출력해야 한다.</p>
     <div class="table-wrap"><table><thead><tr><th>번호</th><th>기능</th><th>인수 순서</th><th>범위 / 의미</th></tr></thead><tbody>
       <tr><td>1</td><td>초기화</td><td>시드</td><td>1~2,147,483,647. 회로·공간·관측 큐 초기화</td></tr>
@@ -138,13 +138,13 @@
       <p><strong>확인이 필요한 표기 차이:</strong> <a href="https://zenodo.org/records/10676866" target="_blank" rel="noopener">v783 연결 자료의 Zenodo 배포 페이지</a>는 CC BY 4.0을 표시한다. 공식 지침과 일치하지 않으므로 영리 재사용 가능 여부를 이 앱에서 단정하지 않는다. 원자료의 개별 이용허락을 변경하지 않으며, 영리 이용 전에는 권리자에게 적용 범위를 확인해야 한다.</p>
       <p>MIT인 모델·동현랭 코드와 원자료의 권리는 별개다. 전체 데이터 포함 HTML을 제한 없는 MIT 파일로 재배포하면 안 된다. <a href="licenses/SHIU-MIT.txt" target="_blank">원 모델 MIT</a> · <a href="licenses/DONGHYUN-MIT.txt" target="_blank">동현랭 MIT</a> · <a href="CREDITS.md" target="_blank">전체 출처·이용 안내</a></p>
     </div></div>
-    <div class="science-block"><span class="index">06</span><div><h3>같은 산책을 다시 보고 싶다면</h3><p>같은 버전·동현랭 코드·시드를 사용하면 난수 순서를 고정해 실험을 다시 볼 수 있다. 다른 브라우저의 부동소수점 경계까지 동일하다고 보장하지는 않는다. 뉴런 ID·해시·시험 범위는 <a href="PROVENANCE.md" target="_blank">데이터 계보 문서</a>에서 확인할 수 있다. 코드는 .dh, 관측값은 CSV로 저장할 수 있으며 서버에는 저장하지 않는다.</p></div></div>
+    <div class="science-block"><span class="index">06</span><div><h3>같은 산책을 다시 보고 싶다면</h3><p>같은 버전·동현랭 코드·시드를 사용하면 난수 순서를 고정해 실험을 다시 볼 수 있다. 같은 코드를 다시 실행하면 시드가 무작위로 바뀌므로, 그 결과를 다시 보려면 기록에 남은 시드를 명령 1에 적어 실행한다. 다른 브라우저의 부동소수점 경계까지 동일하다고 보장하지는 않는다. 뉴런 ID·해시·시험 범위는 <a href="PROVENANCE.md" target="_blank">데이터 계보 문서</a>에서 확인할 수 있다. 코드는 .dh, 관측값은 CSV로 저장할 수 있으며 서버에는 저장하지 않는다.</p></div></div>
     <aside class="maker-note" aria-labelledby="maker-heading"><span class="eyebrow">만든 사람</span><h3 id="maker-heading">FlyWire Connectome에 영감을 받은 백신학자</h3><p>인하대학교 의과대학 김동현 교수는 백신학·감염학을 공부하고 가르친다. 공개된 FlyWire 신경망의 일부를 사용하여 동현초를 개발하고 있다. 동현초는 난해한 프로그래밍 언어인 동현랭을 기반으로 한다.</p></aside>
     </div>
     <!-- REFERENCE_DOCUMENTS -->
   </section>
 </main>
-<footer><span>동현초 v1.19 · 인하대학교 의과대학 교수 김동현</span><span>FlyWire v783 · 비영리 교육용 · <a href="#credits" data-credits>출처·가공·이용 조건</a></span><span><a href="https://raspberry-kim.github.io/donghyun-lang/" target="_blank" rel="noopener">동현랭 실행기</a> · <a href="https://github.com/raspberry-kim/donghyun-lang" target="_blank" rel="noopener">GitHub</a></span></footer>
+<footer><span>동현초 v1.21 · 인하대학교 의과대학 교수 김동현</span><span>FlyWire v783 · 비영리 교육용 · <a href="#credits" data-credits>출처·가공·이용 조건</a></span><span><a href="https://raspberry-kim.github.io/donghyun-lang/" target="_blank" rel="noopener">동현랭 실행기</a> · <a href="https://github.com/raspberry-kim/donghyun-lang" target="_blank" rel="noopener">GitHub</a></span></footer>
 <script type="module" src="app.js"></script>
 </body>
 </html>
