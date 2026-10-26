@@ -15,7 +15,7 @@
 <a class="skip" href="#main">실험실로 건너뛰기</a>
 <header class="header">
   <a href="#" class="brand" aria-label="동현초 처음으로"><span class="wordmark">동현<span>초</span><sup>TM</sup></span><span class="brand-divider"></span><span>FLY LAB <small>코드로 즐기는 뇌 회로 탐험</small></span></a>
-  <div class="edition">v1.21<button id="theme" class="icon-btn" aria-label="밝은 화면과 어두운 화면 전환" title="화면 전환" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button></div>
+  <div class="edition">v1.22<button id="theme" class="icon-btn" aria-label="밝은 화면과 어두운 화면 전환" title="화면 전환" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button></div>
 </header>
 <main id="main">
 <!-- SERIES-NAV-START -->
@@ -57,7 +57,7 @@
       <aside class="code-panel">
         <div class="section-bar"><h2><span class="index">C</span> 동현랭 실험 코드</h2><span class="file-label">experiment.dh</span></div>
         <div class="dh-panel">
-        <div class="dh-head"><label class="sr-only" for="example">실험 예제</label><select id="example"></select><span class="dh-spacer"></span><button id="run" class="dh-btn dh-run" disabled title="Ctrl/⌘ + Enter"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"></path></svg>실행 <kbd>⌘↵</kbd></button><button id="slow" class="dh-btn dh-slow" disabled title="한 줄씩 천천히 실행 · 실행 중에 다시 누르면 원래 속도" aria-label="천천히 실행" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></button><button id="halt" class="dh-btn dh-halt" disabled title="고정된 동현랭 중단 프로그램을 즉시 실행한다">오겡끼데스까</button></div>
+        <div class="dh-head"><label class="sr-only" for="example">실험 예제</label><select id="example"></select><span class="dh-spacer"></span><button id="run" class="dh-btn dh-run" disabled title="Ctrl/⌘ + Enter"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"></path></svg>실행 <kbd>⌘↵</kbd></button><button id="slow" class="dh-btn dh-slow" disabled title="한 줄씩 천천히 실행 · 실행 중에 다시 누르면 원래 속도" aria-label="천천히 실행" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></button><button id="repeat10" class="dh-btn dh-slow dh-repeat" disabled title="같은 코드를 10회 이어서 실행 · 매번 새 시드 · 반복 중에 다시 누르면 남은 반복 취소" aria-label="10회 반복 실행" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 11.5V9a3 3 0 0 1 3-3h14"></path><path d="M18 3.5l2.5 2.5-2.5 2.5"></path><path d="M20.5 12.5V15a3 3 0 0 1-3 3h-14"></path><path d="M6 15.5l-2.5 2.5 2.5 2.5"></path><text x="12" y="12.2" fill="currentColor" stroke="none" font-size="8.5" font-weight="700" text-anchor="middle" dominant-baseline="central" font-family="system-ui,-apple-system,sans-serif">10</text></svg></button><button id="halt" class="dh-btn dh-halt" disabled title="고정된 동현랭 중단 프로그램을 즉시 실행한다">오겡끼데스까</button></div>
         <div class="editor"><pre id="lines" aria-hidden="true">1</pre><textarea id="code" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="동현랭 실험 코드" aria-describedby="editor-help"></textarea></div>
         <div class="editor-status dh-status"><span id="line-count"></span><span id="editor-help">정수 출력 → 실험 명령 · ⌘/Ctrl ↵ 실행</span></div>
         </div>
@@ -70,7 +70,7 @@
     <div class="workflow"><span>동현랭 코드</span><b>→</b><span>감각 입력</span><b>→</b><span>FlyWire 축소 회로</span><b>→</b><span>신경 출력</span><b>→</b><span>몸체 / 관측값</span><small>• 꽥꽥으로 읽고, 방침을 바꾸어 다시 실험한다.</small></div>
   </section>
   <section id="tab-protocol" class="tab-panel document" hidden>
-    <div class="doc-heading"><div class="eyebrow">EXPERIMENT I/O · v1.21</div><h2>초파리의 하루를 코드로 바꿔 보자.</h2><p>처음에는 예제를 그대로 실행하면 된다. 다음에는 코드 속 숫자를 바꿔 먹이를 옮기거나, 걷는 속도와 자극 시간을 조절해 보자. <a href="https://raspberry-kim.github.io/donghyun-lang/" target="_blank" rel="noopener">동현랭 플레이그라운드</a>에서 기본 문법과 숫자 표현을 먼저 연습할 수 있다.</p><p><code>뿡뿡</code>은 정수를 출력하고, <code>뿡뿡뿡</code>은 줄을 나눈다. 이 실험실은 출력된 명령 번호와 인수를 순서대로 읽는다. 동현랭 v1.53의 문법을 그대로 사용하므로 일반 실행기에서는 같은 코드가 숫자를 출력할 뿐이다.</p></div>
+    <div class="doc-heading"><div class="eyebrow">EXPERIMENT I/O · v1.22</div><h2>초파리의 하루를 코드로 바꿔 보자.</h2><p>처음에는 예제를 그대로 실행하면 된다. 다음에는 코드 속 숫자를 바꿔 먹이를 옮기거나, 걷는 속도와 자극 시간을 조절해 보자. <a href="https://raspberry-kim.github.io/donghyun-lang/" target="_blank" rel="noopener">동현랭 플레이그라운드</a>에서 기본 문법과 숫자 표현을 먼저 연습할 수 있다.</p><p><code>뿡뿡</code>은 정수를 출력하고, <code>뿡뿡뿡</code>은 줄을 나눈다. 이 실험실은 출력된 명령 번호와 인수를 순서대로 읽는다. 동현랭 v1.53의 문법을 그대로 사용하므로 일반 실행기에서는 같은 코드가 숫자를 출력할 뿐이다.</p></div>
     <div class="doc-columns"><div><h3>가장 작은 자극 실험</h3><pre class="code-example">나는 동현이냐?
 ㅋㅋ 명령 5: 뉴런 자극
 뿡뿡 도오오오오옹~뿡뿡뿡
@@ -144,7 +144,7 @@
     <!-- REFERENCE_DOCUMENTS -->
   </section>
 </main>
-<footer><span>동현초 v1.21 · 인하대학교 의과대학 교수 김동현</span><span>FlyWire v783 · 비영리 교육용 · <a href="#credits" data-credits>출처·가공·이용 조건</a></span><span><a href="https://raspberry-kim.github.io/donghyun-lang/" target="_blank" rel="noopener">동현랭 실행기</a> · <a href="https://github.com/raspberry-kim/donghyun-lang" target="_blank" rel="noopener">GitHub</a></span></footer>
+<footer><span>동현초 v1.22 · 인하대학교 의과대학 교수 김동현</span><span>FlyWire v783 · 비영리 교육용 · <a href="#credits" data-credits>출처·가공·이용 조건</a></span><span><a href="https://raspberry-kim.github.io/donghyun-lang/" target="_blank" rel="noopener">동현랭 실행기</a> · <a href="https://github.com/raspberry-kim/donghyun-lang" target="_blank" rel="noopener">GitHub</a></span></footer>
 <script type="module" src="app.js"></script>
 </body>
 </html>
