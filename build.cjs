@@ -1,5 +1,6 @@
 const fs=require('fs'),path=require('path'),crypto=require('crypto');
 const {integrateReferenceDocuments}=require('./render-docs.cjs');
+const {inlineIcons,copyIcons}=require('./icon-files.cjs');
 const root=__dirname,out=path.join(root,'dist');fs.rmSync(out,{recursive:true,force:true});fs.mkdirSync(out,{recursive:true});
 const hash=s=>crypto.createHash('sha256').update(s).digest('hex').slice(0,12);
 const put=(base,content)=>{const ext=path.extname(base),n=path.basename(base,ext)+'.'+hash(content)+ext;fs.writeFileSync(path.join(out,n),content);return n;};
@@ -19,6 +20,7 @@ const fontCSS=put('fonts.css',fonts);
 fs.copyFileSync(path.join(root,'LICENSE'),path.join(root,'licenses','DONGHYUNCHO-LICENSE.txt'));
 let html=integrateReferenceDocuments(src('index.html'),root);
 fs.writeFileSync(path.join(out,'index.html'),html.replace('src="app.js"',`src="${app}"`).replace('href="style.css"',`href="${css}"`).replace('href="fonts.css"',`href="${fontCSS}"`));
+copyIcons(out);
 fs.cpSync(path.join(root,'licenses'),path.join(out,'licenses'),{recursive:true});
 if(fs.existsSync(path.join(root,'PROVENANCE.md')))fs.copyFileSync(path.join(root,'PROVENANCE.md'),path.join(out,'PROVENANCE.md'));
 fs.copyFileSync(path.join(root,'CREDITS.md'),path.join(out,'CREDITS.md'));
@@ -28,8 +30,8 @@ const js=src('examples.js').replaceAll('export ','')+'\n'+src('app.js').replace(
 html=html.replace('<link rel="stylesheet" href="fonts.css">','<style>'+inlineFonts+'</style>').replace('<link rel="stylesheet" href="style.css">','<style>'+cssText+'</style>')
   .replace('<script type="module" src="app.js"></script>','<script>'+safe(embed+'\n'+js)+'</script>');
 const version=require('./package.json').version.split('.').slice(0,2).join('.');
-const single=path.join(root,`동현초-v${version}.html`);fs.writeFileSync(single,html);
-// GitHub Pages entry point is also the complete offline edition.
+const single=path.join(root,`동현초-v${version}.html`);fs.writeFileSync(single,inlineIcons(html));
+// GitHub Pages uses file icons; the offline edition embeds the same icons.
 fs.writeFileSync(path.join(root,'index.html'),html);
 const vm=require('vm'),ec=vm.createContext({});
 vm.runInContext(src('examples.js').replaceAll('export ','')+';globalThis.EX=examples;',ec);
