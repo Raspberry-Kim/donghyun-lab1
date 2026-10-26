@@ -20,6 +20,14 @@ function dhSync(){dhHl.scrollTop=dhCode.scrollTop;dhHl.scrollLeft=dhCode.scrollL
 function dhMetrics(){const cs=getComputedStyle(dhCode);for(const p of ['paddingTop','paddingRight','paddingBottom','paddingLeft','fontFamily','fontSize','lineHeight','tabSize','letterSpacing'])dhHl.style[p]=cs[p];}
 let dhCur=0,dhSlowOn=false;
 function dhSlowUI(v){dhSlowOn=v;const b=document.getElementById('slow');if(b)b.setAttribute('aria-pressed',String(v));}
+/* 10회 반복 실행: 실행 버튼을 열 번 이어 누른 것과 같다. 같은 코드를 다시 실행하므로 매번 새 시드를 쓴다. */
+let dhRepeatNo=0,dhRepeatTimer=0;const DH_REPEAT=10;
+function dhRepeatUI(){const b=document.getElementById('repeat10');if(!b)return;b.setAttribute('aria-pressed',String(dhRepeatNo>0));b.disabled=!ready||(busy&&!dhRepeatNo);}
+function dhRepeatStop(){dhRepeatNo=0;clearTimeout(dhRepeatTimer);dhRepeatUI();}
+function dhRepeatNote(){const r=document.getElementById('result');if(dhRepeatNo&&r)r.textContent=`10회 반복 ${dhRepeatNo}/${DH_REPEAT} · `+r.textContent;}
+function dhRepeatStart(){if(dhRepeatNo){dhRepeatStop();return;}if(!ready||busy)return;dhRepeatNo=1;run();if(busy){dhRepeatNote();dhRepeatUI();}else dhRepeatStop();}
+function dhRepeatAfter(type){if(!dhRepeatNo)return;dhRepeatNote();if(type!=='done'||dhRepeatNo>=DH_REPEAT){dhRepeatStop();return;}
+  dhRepeatTimer=setTimeout(()=>{if(!dhRepeatNo)return;dhRepeatNo++;run();if(busy){dhRepeatNote();dhRepeatUI();}else dhRepeatStop();},800);}
 function dhRunningNotice(){$('#result').textContent=(dhSlowOn?'동현랭 코드를 한 줄씩 천천히 실행 중. ':'동현랭 코드 실행 중. ')+'편집 내용은 다음 실행에 적용된다.';}
 function dhMark(n){if(n===dhCur)return;dhCur=n;dhHl.querySelectorAll('.ln.cur').forEach(e=>e.classList.remove('cur'));if(n>0)dhHl.children[n-1]?.classList.add('cur');}
 function dhHighlight(){dhCur=0;dhMetrics();dhHl.innerHTML=dhCode.value.split('\n').map(l=>`<span class="ln">${dhLine(l)||' '}</span>`).join('')+'<span class="ln"> </span>';dhSync();}
@@ -77,7 +85,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',
 window.addEventListener('hashchange',()=>openReferenceTarget(location.hash));
 if(location.hash)openReferenceTarget(location.hash);
 $('.brand').onclick=e=>{e.preventDefault();document.querySelector('[data-tab="lab"]').click();window.scrollTo(0,0);};
-function setBusy(b){busy=b;$('#run').disabled=!ready||b;$('#start').disabled=!ready||b;$('#slow').disabled=!ready;$('#halt').disabled=!b;}
+function setBusy(b){busy=b;$('#run').disabled=!ready||b;$('#start').disabled=!ready||b;$('#slow').disabled=!ready;$('#halt').disabled=!b;dhRepeatUI();}
 let prevRunCode=null;
 function run(e){const slowRun=e===true;if(!ready||busy)return;dhSlowUI(slowRun);
   if(!ready||busy)return;
@@ -89,7 +97,7 @@ function run(e){const slowRun=e===true;if(!ready||busy)return;dhSlowUI(slowRun);
   const repeat=code===prevRunCode;prevRunCode=code;
   setBusy(true);worker.postMessage({type:'run',code,slow:slowRun,repeat});clearTimeout(faultTimer);
 }
-$('#run').onclick=run;$('#start').onclick=run;$('#slow').onclick=()=>{if(busy){dhSlowUI(!dhSlowOn);dhRunningNotice();worker.postMessage({type:'speed',slow:dhSlowOn});if(!dhSlowOn)dhMark(0);}else run(true);};
+$('#run').onclick=run;$('#start').onclick=run;$('#repeat10').onclick=dhRepeatStart;$('#slow').onclick=()=>{if(busy){dhSlowUI(!dhSlowOn);dhRunningNotice();worker.postMessage({type:'speed',slow:dhSlowOn});if(!dhSlowOn)dhMark(0);}else run(true);};
 $('#halt').onclick=()=>{
   if(!busy)return;worker.postMessage({type:'halt'});
   // Infrastructure watchdog is not an alternative experiment control.
@@ -107,7 +115,7 @@ $('#open').onchange=async e=>{
 $('#csv').onclick=()=>{
   const rows=allSamples.length?allSamples:samples,keys=['ms','MN9_L','MN9_R','DNa02_L','DNa02_R','GF_L','GF_R','DA','x','y','active','distance','velocity','dopamineStim','sugarStim','bitterStim','collision'];
   const quote=x=>'"'+String(x).replaceAll('"','""')+'"';
-  const meta=[['# model','동현초 1.21 / FlyWire v783 / 1758 neurons / 121135 edges'],['# data','FlyWire Consortium / reduced, reindexed; not endorsed by FlyWire. Noncommercial use following FlyWire guidelines (CC BY-NC 4.0); Zenodo 10676866 metadata lists CC BY 4.0. See credits for discrepancy.'],['# credits','https://flywire.ai/guidelines'],['# seed',state?.seed],['# code',lastSource]];
+  const meta=[['# model','동현초 1.22 / FlyWire v783 / 1758 neurons / 121135 edges'],['# data','FlyWire Consortium / reduced, reindexed; not endorsed by FlyWire. Noncommercial use following FlyWire guidelines (CC BY-NC 4.0); Zenodo 10676866 metadata lists CC BY 4.0. See credits for discrepancy.'],['# credits','https://flywire.ai/guidelines'],['# seed',state?.seed],['# code',lastSource]];
   download('초파리-관측.csv','text/csv;charset=utf-8','\ufeff'+meta.map(r=>r.map(quote).join(',')).join('\n')+'\n'+keys.join(',')+'\n'+rows.map(r=>keys.map(k=>Number(r[k]).toFixed(k==='ms'?0:3)).join(',')).join('\n'));
 };
 function receive(m){
@@ -147,7 +155,7 @@ async function init(){
     }
     if(data.n!==1758||data.post.length!==121135)throw new Error('회로 데이터 검증 실패');
     blobURL=URL.createObjectURL(new Blob([text],{type:'text/javascript'}));worker=new Worker(blobURL);
-    worker.onmessage=e=>{if(['done','error','halted'].includes(e.data.type))dhSlowUI(false);dhMark(e.data.slow&&e.data.type==='frame'?e.data.phys:0);receive(e.data);};
+    worker.onmessage=e=>{if(['done','error','halted'].includes(e.data.type))dhSlowUI(false);dhMark(e.data.slow&&e.data.type==='frame'?e.data.phys:0);receive(e.data);if(['done','error','halted'].includes(e.data.type))dhRepeatAfter(e.data.type);};
     worker.onerror=e=>{ready=false;setBusy(false);$('#status').textContent='실행기 오류';$('#result').textContent='계산 스레드를 시작하지 못했다. 페이지를 새로고침하라.';$('#result').className='result error';};
     worker.postMessage({type:'init',data});
   }catch(e){$('#status').textContent='불러오기 실패';$('#status').className='status error';$('#result').textContent=e.message+' 새로고침하여 다시 시도하라.';$('#result').className='result error';}
@@ -270,5 +278,6 @@ document.fonts.ready.then(()=>{drawArena(performance.now());drawChart();});
 window.addEventListener('resize',()=>{drawArena(performance.now());drawChart();});
 window.addEventListener('pagehide',()=>{worker?.terminate();if(blobURL)URL.revokeObjectURL(blobURL);});
 window.addEventListener('pageshow',e=>{
+  if(e.persisted)dhRepeatStop();
   if(e.persisted){ready=false;setBusy(false);state=null;previous=null;samples=[];allSamples=[];$('#csv').disabled=true;$('#status').textContent='회로 다시 불러오는 중';$('#result').textContent='다시 돌아왔다. 편집한 코드는 유지되며, 실행하면 새 실험을 시작한다.';init();}
 });
