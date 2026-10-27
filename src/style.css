@@ -12,3 +12,6 @@
 /* Editor code follows Donghyun-lang at every width: 15px/1.7, and 13.5px on phones (<=480px). */
 .editor textarea,.editor pre{font-size:15px;line-height:1.7}
 @media(max-width:480px){.editor textarea,.editor pre{font-size:13.5px}}
+
+/* 소개 문장은 단어 중간에서 끊지 않는다 */
+.intro p{word-break:keep-all}
