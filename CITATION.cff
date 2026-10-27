@@ -1,62 +1,60 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it using the metadata below."
-title: "Donghyunbil (동현빌): an educational village-outbreak laboratory on a real contact network, controlled through the esoteric language Donghyun-lang"
+title: "Donghyuncho (동현초): an educational Drosophila brain-circuit laboratory controlled through the esoteric language Donghyun-lang"
 type: software
-version: "0.38.0"
-date-released: "2026-10-27"
+version: "1.22"
+date-released: "2026-10-26"
 authors:
   - family-names: Kim
     given-names: Dong Hyun
     orcid: "https://orcid.org/0000-0001-9883-0229"
     affiliation: "Inha University College of Medicine"
 license: MIT
-repository-code: "https://github.com/raspberry-kim/donghyun-lab3"
-url: "https://raspberry-kim.github.io/donghyun-lab3/"
+repository-code: "https://github.com/Raspberry-Kim/donghyun-lab1"
+url: "https://raspberry-kim.github.io/donghyun-lab1/"
 abstract: >-
-  Donghyunbil is a browser-based, JavaScript educational tool for exploring
-  infectious disease transmission, vaccination and isolation policies. It
-  simulates hypothetical outbreaks (measles, pertussis, influenza) on the
-  publicly released Haslemere contact data (469 participants, 3 days,
-  5-minute resolution), with all interventions specified only through the
-  esoteric programming language Donghyun-lang. It is a teaching model, not a
-  forecasting or policy-decision tool.
+  Donghyuncho is a browser-based, noncommercial educational laboratory in
+  which a cartoon fruit fly is driven by 1,758 neurons and 121,135 directed
+  connections selected from the FlyWire v783 adult Drosophila brain
+  connectome, computed with an adapted version of the Shiu et al. (2024)
+  brain model. Stimuli and readouts are specified only through the esoteric
+  programming language Donghyun-lang. It is a teaching tool, not a
+  whole-brain model or a biological measurement. The MIT license applies only
+  to the original application code and documentation; the FlyWire data are
+  distributed under the noncommercial FlyWire guidance (CC BY-NC 4.0), and
+  the fonts under the SIL Open Font License. See LICENSE, CREDITS.md and
+  PROVENANCE.md.
 keywords:
-  - epidemiology education
-  - infectious disease modelling
-  - vaccination
-  - contact network
-  - citizen science data
+  - neuroscience education
+  - Drosophila
+  - connectome
+  - FlyWire
+  - computational neuroscience
   - esoteric programming language
   - JavaScript
 references:
-  - type: dataset
-    title: "Haslemere contact dataset (skissler/haslemere)"
+  - type: data
+    title: "FlyWire connectome v783"
     authors:
-      - family-names: Kissler
-        given-names: Stephen M.
-      - family-names: Klepac
-        given-names: Petra
-      - family-names: Tang
-        given-names: Maria
-      - family-names: Conlan
-        given-names: Andrew J. K.
-      - family-names: Gog
-        given-names: Julia R.
-    year: 2020
-    url: "https://github.com/skissler/haslemere"
-  - type: article
-    title: "Sparking \"The BBC Four Pandemic\": Leveraging citizen science and mobile phones to model the spread of disease"
+      - name: "FlyWire Consortium"
+    url: "https://flywire.ai/"
+    version: "783"
+  - type: software
+    title: "Drosophila_brain_model"
     authors:
-      - family-names: Kissler
-        given-names: Stephen M.
-      - family-names: Klepac
-        given-names: Petra
-      - family-names: Tang
-        given-names: Maria
-      - family-names: Conlan
-        given-names: Andrew J. K.
-      - family-names: Gog
-        given-names: Julia R.
-    year: 2018
-    journal: bioRxiv
-    doi: "10.1101/479154"
+      - family-names: Shiu
+        given-names: Philip
+      - family-names: Spiller
+        given-names: Nico
+    license: MIT
+    repository-code: "https://github.com/philshiu/Drosophila_brain_model"
+  - type: software
+    title: "Donghyun-lang (동현랭): a Korean esoteric programming language with a browser playground"
+    authors:
+      - family-names: Kim
+        given-names: Dong Hyun
+        orcid: "https://orcid.org/0000-0001-9883-0229"
+        affiliation: "Inha University College of Medicine"
+    version: "1.53"
+    license: MIT
+    repository-code: "https://github.com/Raspberry-Kim/donghyun-lang"
