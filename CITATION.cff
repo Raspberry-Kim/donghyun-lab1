@@ -4,6 +4,7 @@ title: "Donghyuncho (동현초): an educational Drosophila brain-circuit laborat
 type: software
 version: "1.22"
 date-released: "2026-10-26"
+doi: "10.5281/zenodo.23689484"
 authors:
   - family-names: Kim
     given-names: Dong Hyun
