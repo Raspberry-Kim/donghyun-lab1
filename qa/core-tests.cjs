@@ -33,8 +33,8 @@ const model={};
 for(const [name,drives]of Object.entries(conditions)){
   model[name]=[];
   for(let seed=1;seed<=10;seed++){
-    const b=new Brain(D,seed),t=performance.now(),c=b.advance(1000,drives);
-    model[name].push({seed,wallMs:+(performance.now()-t).toFixed(1),MN9:mean(c,b.groups[5]),L:mean(c,b.groups[6]),R:mean(c,b.groups[7]),GF:mean(c,b.groups[8])});
+    const b=new Brain(D,seed),c=b.advance(1000,drives);
+    model[name].push({seed,MN9:mean(c,b.groups[5]),L:mean(c,b.groups[6]),R:mean(c,b.groups[7]),GF:mean(c,b.groups[8])});
   }
 }
 check('10 seeds sugar versus bitter',()=>{assert(model.sugar.every(r=>r.MN9>20));assert(model.bitterMix.every(r=>r.MN9<5));});
