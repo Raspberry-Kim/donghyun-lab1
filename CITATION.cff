@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "If you use this software, please cite it using the metadata below."
 title: "Donghyuncho (동현초): an educational Drosophila brain-circuit laboratory controlled through the esoteric language Donghyun-lang"
 type: software
-version: "1.22"
-date-released: "2026-10-26"
+version: "1.23"
+date-released: "2026-11-03"
 doi: "10.5281/zenodo.23689484"
 authors:
   - family-names: Kim
