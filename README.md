@@ -127,3 +127,7 @@ npm run build
 **FlyWire Connectome에 영감을 받은 백신학자**
 
 인하대학교 의과대학 김동현 교수는 백신학·감염학을 공부하고 가르친다. 공개된 FlyWire 신경망의 일부를 사용하여 동현초를 개발하고 있다. 동현초는 난해한 프로그래밍 언어인 동현랭을 기반으로 한다.
+
+## 시리즈 연결
+
+[동현랭](https://raspberry-kim.github.io/donghyun-lang/)과 열여덟 실험실을 상단 메뉴로 오간다. [동현테](https://raspberry-kim.github.io/donghyun-lab18/)는 고정 시점의 1인용 단식 테니스다. 데스크톱 메뉴는 동현랭이 두 줄 높이, 나머지는 9열×2줄이다. 모바일은 두 열이며 홀수 개일 때 동현랭만 두 칸 너비를 쓴다.
