@@ -8,8 +8,8 @@ const src=n=>fs.readFileSync(path.join(root,'src',n),'utf8');
 const brain=put('worker.bundle.js',['donghyun.js','brain.js','worker.js'].map(src).join('\n'));
 const data=put('connectome.json',fs.readFileSync(path.join(root,'data/connectome.json')));
 const examples=put('examples.js',src('examples.js'));
-const app=put('app.js',src('app.js').replace("'./examples.js'",`'./${examples}'`).replace("'./worker.bundle.js'",`'./${brain}'`).replace("'./connectome.json'",`'./${data}'`));
-const cssText=src('style.css')+'\n'+src('brand.css'),css=put('style.css',cssText);
+const app=put('app.js',(src('app.js')+'\n'+src('fullscreen.js')).replace("'./examples.js'",`'./${examples}'`).replace("'./worker.bundle.js'",`'./${brain}'`).replace("'./connectome.json'",`'./${data}'`));
+const cssText=src('style.css')+'\n'+src('brand.css')+'\n'+src('fullscreen.css'),css=put('style.css',cssText);
 let fonts='',inlineFonts='';
 for(const [file,family,weight]of [['BlackHanSans','Black Han Sans','400'],['NanumGothicCoding','Nanum Gothic Coding','400'],['PretendardVariable','Pretendard','100 900']]){
   const b=fs.readFileSync(path.join(root,'fonts',file+'.woff2')),n=put(file+'.woff2',b);
@@ -26,7 +26,7 @@ if(fs.existsSync(path.join(root,'PROVENANCE.md')))fs.copyFileSync(path.join(root
 fs.copyFileSync(path.join(root,'CREDITS.md'),path.join(out,'CREDITS.md'));
 const safe=s=>s.replace(/<\/script/gi,'<\\/script');
 const embed='window.FLY_EMBED='+JSON.stringify({worker:['donghyun.js','brain.js','worker.js'].map(src).join('\n'),data:JSON.parse(fs.readFileSync(path.join(root,'data/connectome.json'),'utf8'))})+';';
-const js=src('examples.js').replaceAll('export ','')+'\n'+src('app.js').replace(/^import .*\n/,'');
+const js=src('examples.js').replaceAll('export ','')+'\n'+src('app.js').replace(/^import .*\n/,'')+'\n'+src('fullscreen.js');
 html=html.replace('<link rel="stylesheet" href="fonts.css">','<style>'+inlineFonts+'</style>').replace('<link rel="stylesheet" href="style.css">','<style>'+cssText+'</style>')
   .replace('<script type="module" src="app.js"></script>','<script>'+safe(embed+'\n'+js)+'</script>');
 const version=require('./package.json').version.split('.').slice(0,2).join('.');
