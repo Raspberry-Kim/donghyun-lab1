@@ -1,7 +1,9 @@
 import {examples} from './examples.js';
 const $=s=>document.querySelector(s),canvas=$('#arena'),ctx=canvas.getContext('2d'),chart=$('#chart'),cc=chart.getContext('2d');
 let worker,ready=false,busy=false,state=null,samples=[],allSamples=[],lastSource='',lastFrame=0,previous=null,blobURL='',faultTimer;
-const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* 장면의 동작은 내용이므로 운영체제의 ‘동작 줄이기’(윈도우 ‘애니메이션 효과’ 끔 등)를 따라 멈추지 않는다.
+   동작을 줄여 보려면 주소 끝에 ?motion=reduce 를 붙인다. */
+const reduced=new URLSearchParams(location.search).get('motion')==='reduce';
 const colors={MN9:'#986613',L:'#276f7a',R:'#a44b35',GF:'#6d6385',DA:'#8e3e90'};
 const fallback={time:0,x:440,y:200,angle:0,foods:[],obstacles:[],zones:[],trace:[],drives:{},feed:0,jump:0,velocity:0,mode:'출발 대기'};
 $('#theme').setAttribute('aria-pressed',String(document.documentElement.dataset.theme==='dark'));
