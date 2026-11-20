@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "If you use this software, please cite it using the metadata below."
 title: "Donghyuncho (동현초): an educational Drosophila brain-circuit laboratory controlled through the esoteric language Donghyun-lang"
 type: software
-version: "1.34"
-date-released: "2026-11-17"
+version: "1.35"
+date-released: "2026-11-20"
 doi: "10.5281/zenodo.23689484"
 authors:
   - family-names: Kim
@@ -14,11 +14,12 @@ license: MIT
 repository-code: "https://github.com/Raspberry-Kim/donghyun-lab1"
 url: "https://raspberry-kim.github.io/donghyun-lab1/"
 abstract: >-
-  Version 1.34 keeps the live scene animating at its ordinary rate when the
-  operating system reports reduced motion (for example Chrome or Edge on
-  Windows with animation effects turned off); motion can still be reduced by
-  adding ?motion=reduce to the address. Version 1.33 enlarged the scene in
-  fullscreen on phones.
+  Version 1.35 brings the footer links in line with the rest of the Donghyun
+  series: Donghyun-lang, its repository, this repository and the seventeen
+  other laboratories now appear as one list in series order. Version 1.34
+  kept the live scene animating at its ordinary rate when the operating
+  system reports reduced motion; motion can still be reduced by adding
+  ?motion=reduce to the address.
   The simulation model, data and language semantics are unchanged.
   Donghyuncho is a browser-based, noncommercial educational laboratory in
   which a cartoon fruit fly is driven by 1,758 neurons and 121,135 directed
