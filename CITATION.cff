@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "If you use this software, please cite it using the metadata below."
 title: "Donghyuncho (동현초): an educational Drosophila brain-circuit laboratory controlled through the esoteric language Donghyun-lang"
 type: software
-version: "1.35"
-date-released: "2026-11-20"
+version: "1.36"
+date-released: "2026-11-23"
 doi: "10.5281/zenodo.23689484"
 authors:
   - family-names: Kim
@@ -14,7 +14,8 @@ license: MIT
 repository-code: "https://github.com/Raspberry-Kim/donghyun-lab1"
 url: "https://raspberry-kim.github.io/donghyun-lab1/"
 abstract: >-
-  Version 1.35 brings the footer links in line with the rest of the Donghyun
+  Version 1.36 rewords a few sentences in the page, one example note and the
+  documents without changing behaviour. Version 1.35 brought the footer links in line with the rest of the Donghyun
   series: Donghyun-lang, its repository, this repository and the seventeen
   other laboratories now appear as one list in series order. Version 1.34
   kept the live scene animating at its ordinary rate when the operating
